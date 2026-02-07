@@ -112,8 +112,9 @@ async function loadHistory(page = 1) {
                 );
             });
             console.log('🔍 검색 결과:', filteredData.length + '건');
+            // 검색 시에만 totalCount를 검색 결과 개수로 업데이트
+            totalCount = filteredData.length;
         }
-        totalCount = filteredData.length;
         
         // 페이지네이션 처리
         const startIndex = (page - 1) * limit;
