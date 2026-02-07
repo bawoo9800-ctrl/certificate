@@ -1,0 +1,98 @@
+/* 일괄 삭제 기능 스타일 */
+
+.bulk-actions {
+    margin-bottom: 15px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 12px 15px;
+    background: linear-gradient(135deg, #f8f9ff 0%, #fff5f5 100%);
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2);
+}
+
+.btn-danger:hover:not(:disabled) {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3);
+}
+
+.btn-danger:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.btn-danger:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #9ca3af;
+    box-shadow: none;
+}
+
+.btn-danger i {
+    font-size: 14px;
+}
+
+#selectedCountText {
+    color: #666;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* 체크박스 스타일 개선 */
+.row-checkbox,
+#selectAllCheckbox {
+    width: 18px !important;
+    height: 18px !important;
+    cursor: pointer;
+    accent-color: #667eea;
+}
+
+.row-checkbox:hover,
+#selectAllCheckbox:hover {
+    transform: scale(1.1);
+}
+
+/* 선택된 행 강조 */
+tr:has(.row-checkbox:checked) {
+    background-color: #f0f4ff !important;
+    border-left: 3px solid #667eea;
+}
+
+tr:has(.row-checkbox:checked):hover {
+    background-color: #e5edff !important;
+}
+
+/* 전체 선택 체크박스 indeterminate 상태 */
+#selectAllCheckbox:indeterminate {
+    opacity: 0.7;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    .bulk-actions {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .btn-danger {
+        width: 100%;
+        justify-content: center;
+    }
+}

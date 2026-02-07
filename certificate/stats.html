@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>통계 대시보드 - 품질인정서 발급 시스템</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/history.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- 로그인 검증 스크립트 -->
+    <script>
+        (function() {
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+            const rememberMe = localStorage.getItem('rememberMe');
+            
+            if (isLoggedIn !== 'true' && rememberMe !== 'true') {
+                window.location.href = 'login.html';
+            }
+        })();
+    </script>
+    <style>
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card-large {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .stat-card-large:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+        
+        .stat-card-large h3 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .stat-card-large h3 i {
+            color: var(--primary-color);
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .chart-container h2 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .chart-container h2 i {
+            color: var(--primary-color);
+        }
+        
+        .chart-wrapper {
+            position: relative;
+            height: 400px;
+        }
+        
+        .site-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .site-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s;
+        }
+        
+        .site-item:hover {
+            background: #f8f9fa;
+        }
+        
+        .site-item:last-child {
+            border-bottom: none;
+        }
+        
+        .site-name {
+            flex: 1;
+            font-size: 14px;
+            color: #333;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-right: 15px;
+        }
+        
+        .site-count {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .date-filter {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .date-filter select,
+        .date-filter input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 10px 0;
+        }
+        
+        .stat-description {
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-certificate"></i>
+                    <div class="logo-text">
+                        <span class="logo-title">품질인정서 발급 시스템</span>
+                        <span class="logo-subtitle">(주) 정일방화문</span>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <a href="index.html" class="btn-nav">
+                        <i class="fas fa-home"></i> 메인
+                    </a>
+                    <a href="history.html" class="btn-nav">
+                        <i class="fas fa-list"></i> 발행내역
+                    </a>
+                    <span class="user-info">
+                        <i class="fas fa-user-circle"></i>
+                        <span id="usernameDisplay"></span>
+                    </span>
+                    <button onclick="logout()" class="btn-logout">
+                        <i class="fas fa-sign-out-alt"></i> 로그아웃
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="main-content">
+        <div class="container">
+            <div class="history-wrapper">
+                <div class="history-header">
+                    <h1 class="page-title">
+                        <i class="fas fa-chart-bar"></i> 통계 대시보드
+                    </h1>
+                    <div class="header-actions">
+                        <button class="btn btn-primary" onclick="refreshStats()">
+                            <i class="fas fa-sync-alt"></i> 새로고침
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 기간 필터 -->
+                <div class="date-filter">
+                    <select id="periodFilter" onchange="loadStats()">
+                        <option value="all">전체 기간</option>
+                        <option value="today">오늘</option>
+                        <option value="week">최근 7일</option>
+                        <option value="month" selected>이번 달</option>
+                        <option value="year">올해</option>
+                        <option value="custom">사용자 지정</option>
+                    </select>
+                    <input type="date" id="customStartDate" style="display:none;">
+                    <input type="date" id="customEndDate" style="display:none;">
+                    <button id="applyCustomDate" class="btn btn-sm btn-primary" style="display:none;" onclick="loadStats()">
+                        적용
+                    </button>
+                </div>
+
+                <!-- 통계 카드 -->
+                <div class="stats-grid">
+                    <div class="stat-card-large">
+                        <h3><i class="fas fa-file-alt"></i> 총 발행 건수</h3>
+                        <div class="stat-number" id="statTotalCount">0</div>
+                        <div class="stat-description">선택한 기간 내 총 발행 건수</div>
+                    </div>
+                    <div class="stat-card-large">
+                        <h3><i class="fas fa-building"></i> 업체 수</h3>
+                        <div class="stat-number" id="statCompanyCount">0</div>
+                        <div class="stat-description">인정서를 발급받은 업체 수</div>
+                    </div>
+                    <div class="stat-card-large">
+                        <h3><i class="fas fa-map-marker-alt"></i> 현장 수</h3>
+                        <div class="stat-number" id="statSiteCount">0</div>
+                        <div class="stat-description">인정서가 발급된 현장 수</div>
+                    </div>
+                </div>
+
+                <!-- 서류타입별 통계 -->
+                <div class="chart-container">
+                    <h2><i class="fas fa-file-invoice"></i> 서류 타입별 통계</h2>
+                    <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                        <div class="stat-card-large" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                            <h3 style="color: white;"><i class="fas fa-certificate"></i> 품질인정서</h3>
+                            <div class="stat-number" style="color: white;" id="statQualityCount">0</div>
+                            <div class="stat-description" style="color: rgba(255,255,255,0.9);">품질인정서 발행 건수</div>
+                        </div>
+                        <div class="stat-card-large" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">
+                            <h3 style="color: white;"><i class="fas fa-snowflake"></i> 단열성적서</h3>
+                            <div class="stat-number" style="color: white;" id="statInsulationCount">0</div>
+                            <div class="stat-description" style="color: rgba(255,255,255,0.9);">단열성적서 발행 건수</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 서류타입별 원형 차트 -->
+                <div class="chart-container">
+                    <h2><i class="fas fa-chart-pie"></i> 서류 타입별 비율</h2>
+                    <div class="chart-wrapper" style="height: 350px;">
+                        <canvas id="documentTypeChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- 월별 발행 추이 차트 (서류타입별) -->
+                <div class="chart-container">
+                    <h2><i class="fas fa-chart-line"></i> 월별 발행 추이 (서류타입별)</h2>
+                    <div class="chart-wrapper">
+                        <canvas id="monthlyChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- 일별 발행 추이 차트 (서류타입별) -->
+                <div class="chart-container">
+                    <h2><i class="fas fa-calendar"></i> 일별 발행 추이 (최근 30일, 서류타입별)</h2>
+                    <div class="chart-wrapper">
+                        <canvas id="dailyChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- 현장별 발행 건수 -->
+                <div class="chart-container">
+                    <h2><i class="fas fa-trophy"></i> 현장별 발행 건수 TOP 10</h2>
+                    <div class="site-list" id="siteRankingList">
+                        <!-- 동적으로 생성됩니다 -->
+                    </div>
+                </div>
+
+                <!-- 업체별 발행 건수 -->
+                <div class="chart-container">
+                    <h2><i class="fas fa-medal"></i> 업체별 발행 건수 TOP 10</h2>
+                    <div class="chart-wrapper" style="height: 300px;">
+                        <canvas id="companyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <script src="js/stats-page.js?v=2.1"></script>
+</body>
+</html>

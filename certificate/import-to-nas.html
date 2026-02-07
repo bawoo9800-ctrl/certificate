@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나스 DB로 데이터 가져오기</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .import-container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+        
+        .import-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .import-header h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .import-header .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+        }
+        
+        .step-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .step-title {
+            font-size: 1.6rem;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .step-content {
+            padding-left: 65px;
+        }
+        
+        .btn-import {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.3s;
+        }
+        
+        .btn-import:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.5);
+        }
+        
+        .btn-import:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        #fileInput {
+            display: none;
+        }
+        
+        .file-info {
+            background: #e3f2fd;
+            border: 2px solid #2196F3;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            display: none;
+            color: #1565c0;
+        }
+        
+        .file-info i {
+            margin-right: 8px;
+        }
+        
+        .info-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            color: #856404;
+        }
+        
+        .info-box i {
+            margin-right: 8px;
+        }
+        
+        .info-box p {
+            margin: 5px 0;
+        }
+        
+        .result-box {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .result-box.success {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            color: #155724;
+            display: block;
+        }
+        
+        .result-box.error {
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+            color: #721c24;
+            display: block;
+        }
+        
+        .result-box i {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 40px;
+            background: #e0e0e0;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            transition: width 0.3s;
+            width: 0%;
+        }
+        
+        .detail-results {
+            margin-top: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+        }
+        
+        .detail-results h4 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .detail-results p {
+            margin: 5px 0;
+            padding-left: 20px;
+        }
+    </style>
+    
+
+</head>
+<body>
+    <!-- 헤더 -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-award"></i>
+                <span>품질인정서 발급 시스템</span>
+            </div>
+            <nav>
+                <a href="index.html"><i class="fas fa-home"></i> 홈</a>
+                <a href="history.html"><i class="fas fa-history"></i> 발행내역</a>
+                <a href="import-to-nas.html" class="active"><i class="fas fa-upload"></i> 데이터 가져오기</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="import-container">
+        <div class="import-header">
+            <h1><i class="fas fa-upload"></i> 나스 DB로 데이터 가져오기</h1>
+            <p class="subtitle">젠스파크 개발환경 → 나스 DB 마이그레이션</p>
+        </div>
+
+        <!-- Step 1: JSON 파일 선택 -->
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-number">1</div>
+                <div class="step-title">JSON 파일 선택</div>
+            </div>
+            <div class="step-content">
+                <p style="margin-bottom: 15px; color: #666;">
+                    젠스파크에서 다운로드한 JSON 파일을 선택하세요.
+                </p>
+                <input type="file" id="fileInput" accept=".json" onchange="handleFileSelect(event)">
+                <button class="btn-import" onclick="document.getElementById('fileInput').click()">
+                    <i class="fas fa-file-upload"></i>
+                    JSON 파일 선택
+                </button>
+                <div id="fileInfo" class="file-info"></div>
+                <div class="info-box">
+                    <i class="fas fa-info-circle"></i>
+                    <p><strong>파일명 예시:</strong> genspark_export_2025-01-13.json</p>
+                    <p><strong>위치:</strong> C:\Users\사용자명\Downloads\</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: 데이터 가져오기 -->
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-number">2</div>
+                <div class="step-title">나스 DB에 업로드</div>
+            </div>
+            <div class="step-content">
+                <p style="margin-bottom: 15px; color: #666;">
+                    파일 선택 후 자동으로 나스 DB에 업로드됩니다.
+                </p>
+                <div class="info-box">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p><strong>주의사항:</strong></p>
+                    <p>• 기존 데이터는 유지됩니다 (덮어쓰기 없음)</p>
+                    <p>• 중복된 ID는 자동으로 건너뜁니다</p>
+                    <p>• 배치 처리: 10건씩 나눠서 안전하게 업로드</p>
+                </div>
+                <div id="importProgress" class="progress-bar">
+                    <div class="progress-fill" id="importProgressFill">0%</div>
+                </div>
+                <div id="importResult" class="result-box"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedFileData = null;
+
+        // 파일 선택 핸들러
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            console.log('📁 파일 선택됨:', file.name);
+            
+            const fileInfo = document.getElementById('fileInfo');
+            fileInfo.style.display = 'block';
+            fileInfo.innerHTML = `
+                <i class="fas fa-file-alt"></i>
+                <strong>선택된 파일:</strong> ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)
+            `;
+            
+            // 파일 읽기
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    console.log('✅ JSON 파일 읽기 완료');
+                    console.log('📊 데이터 구조:', data);
+                    
+                    selectedFileData = data;
+                    
+                    // 자동으로 가져오기 시작
+                    importData(data);
+                    
+                } catch (error) {
+                    console.error('❌ JSON 파싱 오류:', error);
+                    
+                    const importResult = document.getElementById('importResult');
+                    importResult.className = 'result-box error';
+                    importResult.style.display = 'block';
+                    importResult.innerHTML = `
+                        <i class="fas fa-exclamation-circle"></i>
+                        <strong>파일 읽기 오류!</strong><br>
+                        유효한 JSON 파일이 아닙니다.<br>
+                        ${error.message}
+                    `;
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // 데이터 가져오기
+        async function importData(data) {
+            try {
+                console.log('📥 나스 DB로 데이터 가져오기 시작');
+                
+                const importProgress = document.getElementById('importProgress');
+                const importProgressFill = document.getElementById('importProgressFill');
+                const importResult = document.getElementById('importResult');
+                
+                importProgress.style.display = 'block';
+                importResult.style.display = 'none';
+                
+                // 데이터 추출 (다양한 형식 지원)
+                let certificates = [];
+                let companySites = [];
+                
+                // 젠스파크 Table 형식
+                if (data.tables) {
+                    certificates = data.tables.certificates?.data || [];
+                    companySites = data.tables.company_sites?.data || [];
+                }
+                // 이카운트 변환 형식
+                else if (data.data && Array.isArray(data.data)) {
+                    certificates = data.data;
+                }
+                // 직접 배열 형식
+                else if (Array.isArray(data)) {
+                    certificates = data;
+                }
+                
+                console.log('📊 certificates:', certificates.length + '건');
+                console.log('📊 company_sites:', companySites.length + '건');
+                
+                let results = {
+                    certificates: { success: 0, skipped: 0, failed: 0 },
+                    company_sites: { success: 0, skipped: 0, failed: 0 }
+                };
+                
+                // certificates 업로드
+                console.log('🔄 certificates 업로드 시작...');
+                for (let i = 0; i < certificates.length; i += 10) {
+                    const batch = certificates.slice(i, i + 10);
+                    
+                    for (const record of batch) {
+                        try {
+                            // ID 중복 체크
+                            const checkResponse = await fetch(`api/certificates.php?id=${record.id}`);
+                            
+                            if (checkResponse.ok) {
+                                const existing = await checkResponse.json();
+                                if (existing && existing.id === record.id) {
+                                    console.log(`⏭️ 건너뜀 (중복 ID): ${record.id}`);
+                                    results.certificates.skipped++;
+                                    continue;
+                                }
+                            }
+                            
+                            // 새 데이터 추가
+                            const createResponse = await fetch('api/certificates.php', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(record)
+                            });
+                            
+                            if (createResponse.ok) {
+                                results.certificates.success++;
+                                console.log(`✅ 추가 완료: ${record.id}`);
+                            } else {
+                                throw new Error(`HTTP ${createResponse.status}`);
+                            }
+                            
+                        } catch (error) {
+                            console.error(`❌ 실패: ${record.id}`, error);
+                            results.certificates.failed++;
+                        }
+                    }
+                    
+                    // 진행률 업데이트
+                    const progress = Math.round(((i + batch.length) / (certificates.length + companySites.length)) * 100);
+                    importProgressFill.style.width = progress + '%';
+                    importProgressFill.textContent = progress + '%';
+                    
+                    // API 부하 방지
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                }
+                
+                // company_sites 업로드
+                console.log('🔄 company_sites 업로드 시작...');
+                for (let i = 0; i < companySites.length; i += 10) {
+                    const batch = companySites.slice(i, i + 10);
+                    
+                    for (const record of batch) {
+                        try {
+                            // 중복 체크 (업체명 + 현장명)
+                            const checkResponse = await fetch(`api/company_sites.php?company=${encodeURIComponent(record.companyName)}&site=${encodeURIComponent(record.siteName)}`);
+                            
+                            if (checkResponse.ok) {
+                                const existing = await checkResponse.json();
+                                if (existing && existing.length > 0) {
+                                    console.log(`⏭️ 건너뜀 (중복): ${record.companyName} - ${record.siteName}`);
+                                    results.company_sites.skipped++;
+                                    continue;
+                                }
+                            }
+                            
+                            // 새 데이터 추가
+                            const createResponse = await fetch('api/company_sites.php', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(record)
+                            });
+                            
+                            if (createResponse.ok) {
+                                results.company_sites.success++;
+                                console.log(`✅ 추가 완료: ${record.companyName} - ${record.siteName}`);
+                            } else {
+                                throw new Error(`HTTP ${createResponse.status}`);
+                            }
+                            
+                        } catch (error) {
+                            console.error(`❌ 실패: ${record.companyName}`, error);
+                            results.company_sites.failed++;
+                        }
+                    }
+                    
+                    // 진행률 업데이트
+                    const progress = Math.round(((certificates.length + i + batch.length) / (certificates.length + companySites.length)) * 100);
+                    importProgressFill.style.width = progress + '%';
+                    importProgressFill.textContent = progress + '%';
+                    
+                    // API 부하 방지
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                }
+                
+                // 완료
+                importProgressFill.style.width = '100%';
+                importProgressFill.textContent = '100%';
+                
+                console.log('✅ 가져오기 완료');
+                console.log('📊 결과:', results);
+                
+                // 결과 표시
+                importResult.className = 'result-box success';
+                importResult.style.display = 'block';
+                importResult.innerHTML = `
+                    <i class="fas fa-check-circle"></i>
+                    <strong>가져오기 완료!</strong><br>
+                    <div class="detail-results">
+                        <h4>📋 certificates (발급 내역)</h4>
+                        <p>✅ 성공: <strong>${results.certificates.success}건</strong></p>
+                        <p>⏭️ 건너뜀: ${results.certificates.skipped}건 (중복 ID)</p>
+                        <p>❌ 실패: ${results.certificates.failed}건</p>
+                        
+                        <h4 style="margin-top: 15px;">🏢 company_sites (업체/현장)</h4>
+                        <p>✅ 성공: <strong>${results.company_sites.success}건</strong></p>
+                        <p>⏭️ 건너뜀: ${results.company_sites.skipped}건 (중복)</p>
+                        <p>❌ 실패: ${results.company_sites.failed}건</p>
+                        
+                        <h4 style="margin-top: 15px;">📊 총계</h4>
+                        <p>✅ 총 성공: <strong>${results.certificates.success + results.company_sites.success}건</strong></p>
+                    </div>
+                    <br>
+                    <a href="history.html" style="display: inline-block; margin-top: 15px; padding: 10px 20px; background: #10b981; color: white; text-decoration: none; border-radius: 8px;">
+                        <i class="fas fa-history"></i> 발행 내역 확인하기
+                    </a>
+                `;
+                
+                setTimeout(() => {
+                    importProgress.style.display = 'none';
+                    importProgressFill.style.width = '0%';
+                }, 3000);
+                
+            } catch (error) {
+                console.error('❌ 가져오기 오류:', error);
+                
+                const importResult = document.getElementById('importResult');
+                importResult.className = 'result-box error';
+                importResult.style.display = 'block';
+                importResult.innerHTML = `
+                    <i class="fas fa-exclamation-circle"></i>
+                    <strong>오류 발생!</strong><br>
+                    ${error.message}
+                `;
+                
+                document.getElementById('importProgress').style.display = 'none';
+            }
+        }
+
+        console.log('🚀 나스 DB 데이터 가져오기 페이지 로드됨');
+        console.log('📂 JSON 파일을 선택하세요');
+    </script>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>발행 내역 - 품질인정서 발급 시스템</title>
+    <link rel="stylesheet" href="css/style.css?v=10.1">
+    <link rel="stylesheet" href="css/history.css?v=10.6">
+    <link rel="stylesheet" href="css/history-bulk-delete.css?v=1.0">
+    <link rel="stylesheet" href="css/history-compact.css?v=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- PDF.js 라이브러리 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <!-- 로그인 검증 스크립트 -->
+    <script>
+        (function() {
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+            const rememberMe = localStorage.getItem('rememberMe');
+            
+            if (isLoggedIn !== 'true' && rememberMe !== 'true') {
+                window.location.href = 'login.html';
+            }
+        })();
+    </script>
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-certificate"></i>
+                    <div class="logo-text">
+                        <span class="logo-title">품질인정서 발급 시스템</span>
+                        <span class="logo-subtitle">(주) 정일방화문</span>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <a href="index.html" class="btn-nav">
+                        <i class="fas fa-home"></i> 메인
+                    </a>
+                    <span class="user-info">
+                        <i class="fas fa-user-circle"></i>
+                        <span id="usernameDisplay"></span>
+                    </span>
+                    <button onclick="logout()" class="btn-logout">
+                        <i class="fas fa-sign-out-alt"></i> 로그아웃
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="main-content">
+        <div class="container">
+            <div class="history-wrapper">
+                <div class="history-header">
+                    <h1 class="page-title">
+                        <i class="fas fa-list"></i> 품질인정서 발행 내역
+                    </h1>
+                    <div class="header-actions">
+                        <button class="btn btn-success" onclick="downloadExcelAll()">
+                            <i class="fas fa-file-excel"></i> 전체 엑셀 다운로드
+                        </button>
+                        <button class="btn btn-info" onclick="showDateRangeModal()">
+                            <i class="fas fa-calendar-alt"></i> 기간별 다운로드
+                        </button>
+                        <button class="btn btn-primary" onclick="refreshHistory()">
+                            <i class="fas fa-sync-alt"></i> 새로고침
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 검색 및 필터 -->
+                <div class="search-section">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="발급NO, 업체명, 현장명 검색...">
+                        <button class="btn-search" onclick="searchHistory()">
+                            <i class="fas fa-search"></i> 검색
+                        </button>
+                    </div>
+                    <div class="filter-box">
+                        <select id="documentTypeFilter" onchange="loadHistory()">
+                            <option value="all">전체 서류</option>
+                            <option value="품질인정서">품질인정서</option>
+                            <option value="단열성적서">단열성적서</option>
+                            <option value="납품확인서">납품확인서</option>
+                        </select>
+                        <select id="sortOrder" onchange="loadHistory()">
+                            <option value="-created_at">최신순</option>
+                            <option value="created_at">오래된순</option>
+                            <option value="issueNo">발급NO 순</option>
+                        </select>
+                        <select id="pageLimit" onchange="loadHistory()">
+                            <option value="10">10개씩 보기</option>
+                            <option value="20">20개씩 보기</option>
+                            <option value="50">50개씩 보기</option>
+                            <option value="100">100개씩 보기</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 통계 카드 -->
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-label">총 발행 건수</div>
+                            <div class="stat-value" id="totalCount">0</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-day"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-label">오늘 발행</div>
+                            <div class="stat-value" id="todayCount">0</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-week"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-label">이번 주 발행</div>
+                            <div class="stat-value" id="weekCount">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 일괄 삭제 버튼 -->
+                <div class="bulk-actions" style="margin-bottom: 15px; display: flex; gap: 10px; align-items: center;">
+                    <button id="bulkDeleteBtn" class="btn btn-danger" onclick="bulkDeleteRecords()" disabled style="opacity: 0.5;">
+                        <i class="fas fa-trash-alt"></i> 선택 삭제
+                    </button>
+                    <span id="selectedCountText" style="color: #666; font-size: 14px;"></span>
+                </div>
+
+                <!-- 발행 내역 테이블 -->
+                <div class="table-container">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 50px;">
+                                    <input type="checkbox" id="selectAllCheckbox" 
+                                           onchange="toggleSelectAll(this)" 
+                                           style="width: 18px; height: 18px; cursor: pointer;"
+                                           title="전체 선택/해제">
+                                </th>
+                                <th>번호</th>
+                                <th>서류 타입</th>
+                                <th>발급 NO</th>
+                                <th>업체명</th>
+                                <th>발급일자</th>
+                                <th>현장명</th>
+                                <th>납품일자</th>
+                                <th>등록일시</th>
+                                <th>작업</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody">
+                            <tr>
+                                <td colspan="10" class="loading">
+                                    <i class="fas fa-spinner fa-spin"></i> 데이터를 불러오는 중...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 페이지네이션 -->
+                <div class="pagination" id="pagination">
+                    <!-- 페이지 버튼이 동적으로 추가됩니다 -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 상세보기/수정 모달 -->
+    <div id="detailModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2><i class="fas fa-edit"></i> 발행 내역 상세/수정</h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- 상세 정보가 동적으로 추가됩니다 -->
+            </div>
+            <div class="modal-footer">
+                <!-- 버튼은 JavaScript에서 동적으로 생성됩니다 -->
+                <button class="btn btn-secondary" onclick="closeModal()">닫기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 날짜 범위 선택 모달 -->
+    <div id="dateRangeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-calendar-alt"></i> 기간별 엑셀 다운로드</h2>
+                <button class="modal-close" onclick="closeDateRangeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="startDate">시작일</label>
+                    <input type="date" id="startDate" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="endDate">종료일</label>
+                    <input type="date" id="endDate" class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeDateRangeModal()">취소</button>
+                <button class="btn btn-success" onclick="downloadExcelByDateRange()">
+                    <i class="fas fa-download"></i> 다운로드
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PDF 미리보기 모달 -->
+    <div id="pdfPreviewContainer" class="pdf-preview-modal" style="display: none;">
+        <div class="pdf-preview-overlay" onclick="closePDFPreview()"></div>
+        <div class="pdf-preview-content">
+            <div class="pdf-preview-header">
+                <h3 id="pdfPreviewTitle"><i class="fas fa-file-pdf"></i> PDF 미리보기</h3>
+                <button class="pdf-preview-close" onclick="closePDFPreview()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="pdf-preview-body">
+                <iframe id="pdfPreviewIframe" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- SheetJS 라이브러리 -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="js/history.js?v=10.13"></script>
+</body>
+</html>

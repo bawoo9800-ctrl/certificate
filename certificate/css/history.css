@@ -1,0 +1,962 @@
+/* 발행 내역 페이지 전용 스타일 */
+
+.main-content {
+    padding: 2rem 0;
+    min-height: calc(100vh - 80px);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.history-wrapper {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* 헤더 */
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.page-title {
+    font-size: 1.8rem;
+    color: #333;
+    margin: 0;
+}
+
+.page-title i {
+    color: var(--primary-color);
+    margin-right: 0.5rem;
+}
+
+.btn-nav {
+    background: var(--primary-color);
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-nav:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+}
+
+/* 검색 섹션 */
+.search-section {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.search-box {
+    flex: 1;
+    display: flex;
+    gap: 0.5rem;
+    min-width: 300px;
+}
+
+.search-box input {
+    flex: 1;
+    padding: 0.8rem 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.btn-search {
+    padding: 0.8rem 1.5rem;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-search:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+}
+
+.filter-box {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.filter-box select {
+    padding: 0.8rem 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: white;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.filter-box select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* 통계 카드 */
+.stats-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+    transition: transform 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: white;
+}
+
+.stat-content {
+    flex: 1;
+}
+
+.stat-label {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+}
+
+.stat-value {
+    color: white;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+/* 테이블 컨테이너 */
+.table-container {
+    overflow-x: auto;
+    margin-bottom: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* 테이블 스타일 */
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.history-table thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.history-table th {
+    padding: 0.8rem 0.6rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.history-table td {
+    padding: 0.8rem 0.6rem;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 0.9rem;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.history-table tbody tr {
+    transition: background-color 0.3s;
+}
+
+.history-table tbody tr:hover {
+    background-color: #f8f9ff;
+}
+
+.text-truncate {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 작업 버튼 셀 */
+.action-cell {
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+    justify-content: flex-start;
+    white-space: nowrap;
+    flex-wrap: nowrap; /* 한 줄로 유지 */
+}
+
+.btn-action {
+    padding: 0.35rem 0.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+}
+
+.btn-action i {
+    font-size: 0.9rem;
+}
+
+.btn-view {
+    background: #3b82f6;
+    color: white;
+}
+
+.btn-view:hover {
+    background: #2563eb;
+    transform: translateY(-2px);
+}
+
+.btn-download-delivery {
+    background: #8b5cf6;
+    color: white;
+}
+
+.btn-download-delivery:hover {
+    background: #7c3aed;
+    transform: translateY(-2px);
+}
+
+.btn-download-quality {
+    background: #10b981;
+    color: white;
+}
+
+.btn-download-quality:hover {
+    background: #059669;
+    transform: translateY(-2px);
+}
+
+.btn-reissue {
+    background: #f59e0b;
+    color: white;
+}
+
+.btn-reissue:hover {
+    background: #d97706;
+    transform: translateY(-2px);
+}
+
+.btn-delete {
+    background: #ef4444;
+    color: white;
+}
+
+.btn-delete:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+}
+
+/* 페이지네이션 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+}
+
+.page-btn {
+    padding: 0.6rem 1rem;
+    border: 2px solid #e0e0e0;
+    background: white;
+    color: #333;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.page-btn:hover:not(:disabled) {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+    transform: translateY(-2px);
+}
+
+.page-btn.active {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+.page-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.page-ellipsis {
+    padding: 0.6rem 0.5rem;
+    color: #999;
+}
+
+/* 로딩 상태 */
+.loading {
+    text-align: center;
+    padding: 3rem;
+    color: #999;
+    font-size: 1.1rem;
+}
+
+.loading i {
+    margin-right: 0.5rem;
+}
+
+/* 로딩 스피너 애니메이션 */
+.loading-spinner {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-row td {
+    background: #fafafa !important;
+}
+
+/* 버튼 스타일 */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-primary {
+    background: #667eea;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+    transform: translateY(-2px);
+}
+
+.btn-success {
+    background: #10b981;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #059669;
+    transform: translateY(-2px);
+}
+
+.btn-info {
+    background: #3b82f6;
+    color: white;
+}
+
+.btn-info:hover {
+    background: #2563eb;
+    transform: translateY(-2px);
+}
+
+/* 작은 버튼 (모달 내부용) */
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+}
+
+/* 알림 메시지 */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.notification-success {
+    background: #10b981;
+}
+
+.notification-error {
+    background: #ef4444;
+}
+
+.notification-info {
+    background: #3b82f6;
+}
+
+.notification-warning {
+    background: #f59e0b;
+}
+
+/* 모달 스타일 */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 15px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    padding: 1.5rem;
+    border-bottom: 2px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    margin: 0;
+    color: #333;
+    font-size: 1.5rem;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.3s;
+}
+
+.modal-close:hover {
+    color: #333;
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+.modal-footer {
+    padding: 1.5rem;
+    border-top: 2px solid #f0f0f0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+/* 폼 스타일 */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.form-group label i {
+    margin-right: 0.5rem;
+    color: #667eea;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s;
+    box-sizing: border-box;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-control::placeholder {
+    color: #999;
+}
+
+/* 모달 크기 확장 */
+.modal-large .modal-content {
+    max-width: 1200px;
+}
+
+/* 폼 행 (2열 레이아웃) */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 텍스트 영역 스타일 */
+textarea.form-control {
+    resize: vertical;
+    min-height: 120px;
+    font-family: 'Noto Sans KR', sans-serif;
+    line-height: 1.6;
+}
+
+/* 정보 섹션 (상세보기 모달) */
+.info-section {
+    background: #f8f9ff;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 0.5rem;
+}
+
+.info-item {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.info-item strong {
+    color: #333;
+    min-width: 100px;
+}
+
+/* PDF 문서 섹션 스타일 */
+.pdf-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid #f0f0f0;
+}
+
+.pdf-section h3 {
+    color: #333;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pdf-section h3 i {
+    color: #ef4444;
+}
+
+.pdf-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.pdf-item {
+    background: #f8f9ff;
+    border: 2px solid #e0e7ff;
+    border-radius: 10px;
+    padding: 1rem;
+    transition: all 0.3s;
+}
+
+.pdf-item:hover {
+    border-color: #667eea;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+
+.pdf-item-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.pdf-item-header i {
+    color: #667eea;
+    font-size: 1.3rem;
+}
+
+.pdf-size {
+    margin-left: auto;
+    font-size: 0.85rem;
+    color: #666;
+    font-weight: 400;
+}
+
+.pdf-item-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.pdf-item-actions .btn-danger {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    border: none;
+    color: white;
+    transition: all 0.3s;
+}
+
+.pdf-item-actions .btn-danger:hover {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+/* PDF 미리보기 컨테이너 */
+.pdf-preview-container {
+    margin-top: 2rem;
+    border: 2px solid #e0e7ff;
+    border-radius: 10px;
+    overflow: hidden;
+    background: white;
+}
+
+.pdf-preview-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pdf-preview-header h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-close-preview {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-close-preview:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.pdf-preview-content {
+    padding: 1rem;
+    background: #f8f9ff;
+    overflow-y: auto;
+    max-height: 600px;
+}
+
+/* PDF 로딩 중 표시 */
+.pdf-loading {
+    text-align: center;
+    padding: 3rem;
+    color: #667eea;
+    font-size: 1.2rem;
+}
+
+.pdf-loading i {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .history-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+    
+    .header-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        width: 100%;
+    }
+    
+    .stats-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .search-section {
+        flex-direction: column;
+    }
+    
+    .search-box {
+        min-width: 100%;
+    }
+    
+    .history-table {
+        font-size: 0.85rem;
+    }
+    
+    .history-table th,
+    .history-table td {
+        padding: 0.75rem 0.5rem;
+    }
+    
+    .action-cell {
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+    
+    .btn-action {
+        width: 100%;
+    }
+    
+    .modal-content {
+        max-width: 100%;
+        margin: 1rem;
+    }
+    
+    .modal-large .modal-content {
+        max-width: 100%;
+    }
+    
+    .pdf-item-actions {
+        flex-direction: column;
+    }
+    
+    .pdf-item-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* PDF 미리보기 전체 화면 모달 */
+.pdf-preview-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pdf-preview-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1;
+}
+
+.pdf-preview-content {
+    position: relative;
+    z-index: 2;
+    width: 90%;
+    height: 90%;
+    max-width: 1200px;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+.pdf-preview-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.pdf-preview-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pdf-preview-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.pdf-preview-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.pdf-preview-body {
+    flex: 1;
+    padding: 1rem;
+    background: #f5f5f5;
+    overflow: hidden;
+}
+
+#pdfPreviewIframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 8px;
+    background: white;
+}
+
+/* 반응형 - PDF 미리보기 */
+@media (max-width: 768px) {
+    .pdf-preview-content {
+        width: 95%;
+        height: 95%;
+    }
+    
+    .pdf-preview-header h3 {
+        font-size: 1rem;
+    }
+    
+    .pdf-preview-close {
+        width: 36px;
+        height: 36px;
+        font-size: 1.2rem;
+    }
+    
+    .pdf-preview-body {
+        padding: 0.5rem;
+    }
+}

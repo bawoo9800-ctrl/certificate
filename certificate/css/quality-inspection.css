@@ -1,0 +1,2924 @@
+/* ==================== Reset & Base ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+/* ==================== Header ==================== */
+.header {
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-left h1 {
+    font-size: 1.3rem;
+    color: #667eea;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.8rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+/* ==================== Main Content ==================== */
+.main-content {
+    padding: 1rem;
+}
+
+.container {
+    max-width: 1600px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
+/* ==================== Tab Navigation ==================== */
+.tab-navigation {
+    display: flex;
+    background: #f8f9fa;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 0.9rem 1.5rem;
+    border: none;
+    background: transparent;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #6c757d;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    position: relative;
+}
+
+.tab-btn:not(:disabled):hover {
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
+}
+
+.tab-btn.active {
+    background: white;
+    color: #667eea;
+    border-bottom: 3px solid #667eea;
+}
+
+.tab-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.tab-btn .badge {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.75rem;
+    border-radius: 10px;
+}
+
+.badge-info {
+    background: #17a2b8;
+    color: white;
+}
+
+/* ==================== Tab Content ==================== */
+.tab-content {
+    padding: 1.5rem;
+}
+
+.tab-panel {
+    display: none;
+}
+
+.tab-panel.active {
+    display: block;
+}
+
+.coming-soon {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #6c757d;
+}
+
+.coming-soon i {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.3;
+}
+
+.coming-soon p {
+    font-size: 1.2rem;
+}
+
+/* ==================== Filter Section ==================== */
+.filter-section {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.filter-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.filter-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #495057;
+}
+
+.filter-group select,
+.filter-group input {
+    padding: 0.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.filter-group select:focus,
+.filter-group input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.search-group {
+    grid-column: span 2;
+}
+
+.filter-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: flex-end;
+}
+
+/* ==================== Table ==================== */
+.table-container {
+    overflow-x: auto;
+    margin-bottom: 2rem;
+}
+
+.inspection-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1400px;
+}
+
+.inspection-table th {
+    background: #667eea;
+    color: white;
+    padding: 0.75rem 0.4rem;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+.inspection-table th:last-child {
+    border-right: none;
+}
+
+.inspection-table td {
+    padding: 0.6rem 0.4rem;
+    text-align: center;
+    border-bottom: 1px solid #e9ecef;
+    font-size: 0.85rem;
+}
+
+.inspection-table tbody tr {
+    transition: background 0.2s;
+}
+
+.inspection-table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.status-badge {
+    padding: 0.3rem 0.6rem;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.status-진행중 {
+    background: #ffc107;
+    color: #856404;
+}
+
+.status-완료 {
+    background: #28a745;
+    color: white;
+}
+
+.quality-status-미완료 {
+    background: #dc3545;
+    color: white;
+}
+
+.quality-status-완료 {
+    background: #28a745;
+    color: white;
+}
+
+/* ==================== Buttons ==================== */
+.btn {
+    padding: 0.5rem 0.9rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.btn i {
+    font-size: 0.9rem;
+}
+
+.btn-primary {
+    background: #667eea;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+}
+
+.btn-success {
+    background: #28a745;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #218838;
+}
+
+.btn-warning {
+    background: #ffc107;
+    color: #856404;
+}
+
+.btn-warning:hover {
+    background: #e0a800;
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #c82333;
+}
+
+.btn-sm {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.8rem;
+}
+
+.btn-icon {
+    padding: 0.35rem 0.5rem;
+}
+
+.btn-info {
+    background: #17a2b8;
+    color: white;
+}
+
+.btn-info:hover {
+    background: #138496;
+}
+
+/* ==================== Modal ==================== */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 15px;
+    max-width: 800px;
+    width: 100%;
+    max-height: 95vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    animation: modalSlideIn 0.3s;
+}
+
+.modal-large,
+.modal-content.modal-large {
+    max-width: 1400px !important;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    padding: 1.5rem 2rem;
+    border-bottom: 2px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    color: #333;
+    font-size: 1.5rem;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.3s;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    color: #dc3545;
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+.modal-footer {
+    padding: 1.5rem 2rem;
+    border-top: 2px solid #f0f0f0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+/* ==================== Form ==================== */
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #495057;
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 0.7rem;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    font-family: inherit;
+}
+
+/* ==================== Pagination ==================== */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 0;
+}
+
+.pagination button {
+    padding: 0.5rem 1rem;
+    border: 1px solid #dee2e6;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.pagination button:hover:not(:disabled) {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+.pagination button.active {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+.pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ==================== Notification ==================== */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem 1.5rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    gap: 1rem;
+    min-width: 300px;
+    animation: slideIn 0.3s;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.notification.show {
+    display: flex;
+}
+
+.notification.success {
+    border-left: 4px solid #28a745;
+}
+
+.notification.error {
+    border-left: 4px solid #dc3545;
+}
+
+.notification.info {
+    border-left: 4px solid #17a2b8;
+}
+
+/* ==================== Responsive ==================== */
+
+/* 태블릿 가로 (1024px 이하) */
+@media (max-width: 1200px) {
+    .header-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .header-left,
+    .header-right {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .filter-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .search-group {
+        grid-column: auto;
+    }
+    
+    .inspection-table {
+        font-size: 0.85rem;
+    }
+    
+    .inspection-table th,
+    .inspection-table td {
+        padding: 0.6rem 0.4rem;
+    }
+}
+
+/* 태블릿 세로 (768px 이하) */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+    
+    .main-content {
+        padding: 0.5rem;
+    }
+    
+    .container {
+        border-radius: 8px;
+    }
+    
+    .tab-content {
+        padding: 1rem;
+    }
+    
+    .tab-btn {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+    
+    .tab-btn i {
+        font-size: 1.2rem;
+    }
+    
+    .tab-btn .badge {
+        font-size: 0.7rem;
+    }
+    
+    .filter-section {
+        padding: 1rem;
+    }
+    
+    .filter-group label {
+        font-size: 0.85rem;
+    }
+    
+    .filter-group select,
+    .filter-group input {
+        font-size: 0.9rem;
+        padding: 0.5rem;
+    }
+    
+    .filter-actions {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .filter-actions .btn {
+        width: 100%;
+        justify-content: center;
+        font-size: 0.9rem;
+    }
+    
+    /* 테이블 터치 최적화 */
+    .table-container {
+        overflow-x: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .inspection-table {
+        min-width: 1200px;
+        font-size: 0.8rem;
+    }
+    
+    .inspection-table th,
+    .inspection-table td {
+        padding: 0.5rem 0.3rem;
+        white-space: nowrap;
+    }
+    
+    .btn-sm {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.8rem;
+    }
+    
+    .btn-icon {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.8rem;
+    }
+    
+    /* 모달 태블릿 최적화 */
+    .modal {
+        padding: 0.5rem;
+    }
+    
+    .modal-content {
+        max-height: 95vh;
+        margin: 0;
+    }
+    
+    .modal-header {
+        padding: 1rem;
+    }
+    
+    .modal-header h2 {
+        font-size: 1.2rem;
+    }
+    
+    .modal-body {
+        padding: 1rem;
+    }
+    
+    .modal-footer {
+        padding: 1rem;
+        gap: 0.5rem;
+    }
+    
+    .modal-footer .btn {
+        flex: 1;
+        font-size: 0.9rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+    }
+    
+    .form-group label {
+        font-size: 0.85rem;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        font-size: 0.9rem;
+        padding: 0.6rem;
+    }
+    
+    /* 검사 양식 최적화 */
+    .inspection-item {
+        margin-bottom: 1.5rem;
+    }
+    
+    .inspection-item h4 {
+        font-size: 1rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    /* 페이지네이션 터치 최적화 */
+    .pagination button {
+        padding: 0.6rem 0.9rem;
+        font-size: 0.9rem;
+        min-width: 40px;
+        min-height: 40px;
+    }
+}
+
+/* 모바일 (480px 이하) */
+@media (max-width: 480px) {
+    .header-left h1 {
+        font-size: 1.2rem;
+    }
+    
+    .header-right {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .user-info {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .tab-btn {
+        font-size: 0.8rem;
+        padding: 0.6rem 0.5rem;
+    }
+    
+    .tab-btn i {
+        font-size: 1rem;
+    }
+    
+    .filter-row {
+        gap: 0.5rem;
+    }
+    
+    .status-badge {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.6rem;
+    }
+    
+    .notification {
+        min-width: 280px;
+        font-size: 0.9rem;
+    }
+}
+
+/* ==================== Import Modal Styles ==================== */
+.import-options {
+    margin-bottom: 1.5rem;
+}
+
+.import-options h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #667eea;
+}
+
+.option-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.option-tab {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    background: #f8f9fa;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.option-tab:hover {
+    background: #e9ecef;
+}
+
+.option-tab.active {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+.import-option {
+    display: none;
+}
+
+.import-option.active {
+    display: block;
+}
+
+.upload-area {
+    border: 2px dashed #667eea;
+    border-radius: 8px;
+    padding: 3rem 2rem;
+    text-align: center;
+    background: #f8f9ff;
+    transition: all 0.3s;
+}
+
+.upload-area:hover {
+    background: #f0f3ff;
+    border-color: #5568d3;
+}
+
+.upload-area.dragover {
+    background: #e6eaff;
+    border-color: #4051b5;
+}
+
+.upload-area i {
+    font-size: 3rem;
+    color: #667eea;
+    margin-bottom: 1rem;
+}
+
+.upload-area p {
+    margin-bottom: 1rem;
+    color: #666;
+}
+
+.paste-instructions {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.paste-instructions h4 {
+    color: #667eea;
+    margin-bottom: 0.5rem;
+}
+
+.paste-instructions ol {
+    margin-left: 1.5rem;
+    color: #666;
+}
+
+.paste-instructions li {
+    margin: 0.3rem 0;
+}
+
+#pasteArea {
+    width: 100%;
+    min-height: 200px;
+    padding: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    resize: vertical;
+}
+
+#pasteArea:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.preview-table-container {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: auto;
+}
+
+#previewSection h3 {
+    color: #667eea;
+    margin-bottom: 1rem;
+}
+
+#previewCount,
+#importCount {
+    font-weight: bold;
+    color: #667eea;
+}
+
+#fileInfo {
+    background: #e8f5e9;
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #4caf50;
+}
+
+#fileInfo p {
+    margin: 0;
+    color: #2e7d32;
+}
+
+#fileName {
+    font-weight: bold;
+}
+
+/* ==================== Tablet Inspection Form ==================== */
+.tablet-inspection-form {
+    padding: 1rem;
+    background: #f8f9fa;
+}
+
+/* Section Styles */
+.tablet-section {
+    background: white;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    overflow: hidden;
+}
+
+.tablet-section-header {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    padding: 1rem 1.5rem;
+    border-bottom: 3px solid #3498db;
+}
+
+.tablet-section-header h3 {
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+/* Info Section */
+.tablet-info-section {
+    background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+    border: none;
+    padding: 1.5rem;
+}
+
+.tablet-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.tablet-info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.tablet-info-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tablet-info-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #333;
+}
+
+/* Reference Box */
+.tablet-reference-box {
+    background: linear-gradient(135deg, #e3f2fd 0%, #f0f4ff 100%);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin: 1.5rem;
+    border: 2px solid #2196f3;
+}
+
+.tablet-reference-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1976d2;
+    margin-bottom: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.tablet-reference-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.tablet-reference-item {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 2px 6px rgba(33, 150, 243, 0.15);
+}
+
+.tablet-reference-special {
+    background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+    border: 2px solid #ff9800;
+}
+
+.ref-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #666;
+}
+
+.ref-value {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #1976d2;
+}
+
+.tablet-reference-special .ref-value {
+    color: #f57c00;
+}
+
+.ref-unit {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #999;
+}
+
+.ref-hint {
+    font-size: 0.75rem;
+    color: #f57c00;
+    font-weight: 600;
+}
+
+/* Measurement Grid */
+.tablet-measurement-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding: 1.5rem;
+}
+
+.tablet-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.tablet-label {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.tablet-label-special {
+    color: #f57c00;
+}
+
+.tablet-unit {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #999;
+}
+
+.tablet-input {
+    height: 60px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    border: 3px solid #ddd;
+    border-radius: 10px;
+    padding: 0 1rem;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.tablet-input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+}
+
+.tablet-input-success {
+    border-color: #4caf50 !important;
+    background-color: #e8f5e9 !important;
+}
+
+.tablet-input-warning {
+    border-color: #ff9800 !important;
+    background-color: #fff3e0 !important;
+}
+
+/* Result Group */
+.tablet-result-group {
+    padding: 1.5rem;
+    border-top: 2px solid #f0f0f0;
+}
+
+.tablet-result-label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.tablet-radio-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.tablet-radio-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    padding: 1.2rem;
+    border: 3px solid #ddd;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: white;
+}
+
+.tablet-radio-btn input[type="radio"] {
+    display: none;
+}
+
+.tablet-radio-icon {
+    font-size: 2rem;
+    font-weight: 900;
+}
+
+.tablet-radio-text {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.tablet-radio-pass {
+    border-color: #e0e0e0;
+}
+
+.tablet-radio-pass:hover {
+    border-color: #4caf50;
+    background: #f1f8f4;
+}
+
+.tablet-radio-pass input:checked + .tablet-radio-icon {
+    color: #4caf50;
+}
+
+.tablet-radio-pass:has(input:checked) {
+    border-color: #4caf50;
+    background: linear-gradient(135deg, #e8f5e9 0%, #f1f8f4 100%);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.tablet-radio-fail {
+    border-color: #e0e0e0;
+}
+
+.tablet-radio-fail:hover {
+    border-color: #f44336;
+    background: #fef5f5;
+}
+
+.tablet-radio-fail input:checked + .tablet-radio-icon {
+    color: #f44336;
+}
+
+.tablet-radio-fail:has(input:checked) {
+    border-color: #f44336;
+    background: linear-gradient(135deg, #ffebee 0%, #fef5f5 100%);
+    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+}
+
+/* Visual Inspection Grid */
+.tablet-visual-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding: 1.5rem;
+}
+
+.tablet-visual-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.tablet-check-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.tablet-check-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    padding: 1rem;
+    border: 3px solid #ddd;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: white;
+}
+
+.tablet-check-btn input[type="radio"] {
+    display: none;
+}
+
+.tablet-check-icon {
+    font-size: 1.5rem;
+    font-weight: 900;
+}
+
+.tablet-check-text {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.tablet-check-pass:hover {
+    border-color: #4caf50;
+    background: #f1f8f4;
+}
+
+.tablet-check-pass:has(input:checked) {
+    border-color: #4caf50;
+    background: linear-gradient(135deg, #e8f5e9 0%, #f1f8f4 100%);
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+}
+
+.tablet-check-pass:has(input:checked) .tablet-check-icon {
+    color: #4caf50;
+}
+
+.tablet-check-fail:hover {
+    border-color: #f44336;
+    background: #fef5f5;
+}
+
+.tablet-check-fail:has(input:checked) {
+    border-color: #f44336;
+    background: linear-gradient(135deg, #ffebee 0%, #fef5f5 100%);
+    box-shadow: 0 2px 8px rgba(244, 67, 54, 0.3);
+}
+
+.tablet-check-fail:has(input:checked) .tablet-check-icon {
+    color: #f44336;
+}
+
+/* Inline Input */
+.tablet-input-inline {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.tablet-inline-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    flex: 1;
+}
+
+.tablet-input-inline {
+    flex: 1;
+    height: 50px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 0 1rem;
+    text-align: center;
+}
+
+/* Final Section */
+.tablet-final-section {
+    border: 3px solid #667eea;
+}
+
+.tablet-final-grid {
+    padding: 1.5rem;
+}
+
+.tablet-final-result {
+    margin-bottom: 1.5rem;
+}
+
+.tablet-final-label {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1rem;
+    display: block;
+    text-align: center;
+}
+
+.tablet-final-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.tablet-final-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    padding: 2rem;
+    border: 4px solid #ddd;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: white;
+}
+
+.tablet-final-btn input[type="radio"] {
+    display: none;
+}
+
+.tablet-final-icon {
+    font-size: 3rem;
+    font-weight: 900;
+}
+
+.tablet-final-text {
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.tablet-final-pass:hover {
+    border-color: #4caf50;
+    background: #f1f8f4;
+    transform: translateY(-4px);
+}
+
+.tablet-final-pass:has(input:checked) {
+    border-color: #4caf50;
+    background: linear-gradient(135deg, #e8f5e9 0%, #f1f8f4 100%);
+    box-shadow: 0 8px 24px rgba(76, 175, 80, 0.4);
+    transform: scale(1.05);
+}
+
+.tablet-final-pass:has(input:checked) .tablet-final-icon,
+.tablet-final-pass:has(input:checked) .tablet-final-text {
+    color: #4caf50;
+}
+
+.tablet-final-fail:hover {
+    border-color: #f44336;
+    background: #fef5f5;
+    transform: translateY(-4px);
+}
+
+.tablet-final-fail:has(input:checked) {
+    border-color: #f44336;
+    background: linear-gradient(135deg, #ffebee 0%, #fef5f5 100%);
+    box-shadow: 0 8px 24px rgba(244, 67, 54, 0.4);
+    transform: scale(1.05);
+}
+
+.tablet-final-fail:has(input:checked) .tablet-final-icon,
+.tablet-final-fail:has(input:checked) .tablet-final-text {
+    color: #f44336;
+}
+
+/* Notes Group */
+.tablet-notes-group {
+    margin-top: 1.5rem;
+}
+
+.tablet-notes-label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 0.8rem;
+    display: block;
+}
+
+.tablet-notes-input {
+    width: 100%;
+    min-height: 120px;
+    font-size: 1rem;
+    font-family: inherit;
+    border: 3px solid #ddd;
+    border-radius: 10px;
+    padding: 1rem;
+    resize: vertical;
+    transition: all 0.3s;
+}
+
+.tablet-notes-input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+}
+
+/* Tablet Responsive Adjustments */
+@media (max-width: 1024px) {
+    .tablet-reference-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .tablet-measurement-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .tablet-visual-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .tablet-info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .tablet-reference-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .tablet-final-buttons {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==================== Frame Inspection Table ==================== */
+.inspection-table-container {
+    padding: 1.5rem;
+    overflow-x: auto;
+}
+
+.frame-inspection-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.frame-inspection-table thead {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: #ffffff;
+}
+
+.frame-inspection-table th {
+    padding: 1rem 0.5rem;
+    text-align: center;
+    font-weight: 600;
+    border: 1px solid rgba(255,255,255,0.3);
+    font-size: 0.95rem;
+}
+
+.frame-inspection-table td {
+    padding: 0.8rem 0.5rem;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    vertical-align: middle;
+}
+
+.frame-inspection-table tbody tr:nth-child(even) {
+    background: #f8f9fa;
+}
+
+.frame-inspection-table tbody tr:hover {
+    background: #e8f4f8;
+}
+
+.frame-inspection-table td:first-child,
+.frame-inspection-table td:nth-child(2) {
+    font-weight: 600;
+    background: #f0f4ff;
+    text-align: left;
+    padding-left: 1rem;
+}
+
+.frame-inspection-table strong {
+    color: #667eea;
+    font-size: 1rem;
+}
+
+/* Table Input Fields */
+.table-input {
+    width: 100%;
+    height: 50px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    padding: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.3s;
+    background: white;
+}
+
+.table-input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    background: #f0f4ff;
+}
+
+.table-input::placeholder {
+    color: #999;
+    font-weight: 400;
+}
+
+/* Input validation colors */
+.table-input.valid {
+    border-color: #4caf50;
+    background: #e8f5e9;
+}
+
+.table-input.invalid {
+    border-color: #f44336;
+    background: #ffebee;
+}
+
+.table-input.warning {
+    border-color: #ff9800;
+    background: #fff3e0;
+}
+
+/* Responsive Table */
+@media (max-width: 1024px) {
+    .inspection-table-container {
+        padding: 1rem;
+    }
+    
+    .frame-inspection-table {
+        font-size: 0.85rem;
+    }
+    
+    .frame-inspection-table th,
+    .frame-inspection-table td {
+        padding: 0.6rem 0.3rem;
+    }
+    
+    .table-input {
+        height: 45px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .inspection-table-container {
+        padding: 0.5rem;
+    }
+    
+    .frame-inspection-table {
+        font-size: 0.8rem;
+    }
+    
+    .frame-inspection-table th,
+    .frame-inspection-table td {
+        padding: 0.5rem 0.2rem;
+    }
+    
+    .table-input {
+        height: 40px;
+        font-size: 0.95rem;
+    }
+}
+
+/* ==================== Print Styles ==================== */
+@media print {
+    .header,
+    .filter-section,
+    .pagination,
+    .btn,
+    .modal {
+        display: none !important;
+    }
+    
+    .container {
+        box-shadow: none;
+    }
+    
+    .inspection-table {
+        font-size: 0.8rem;
+    }
+}
+
+/* ==================== 제품정보 섹션 ==================== */
+.product-info-grid {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.product-info-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.product-info-row:last-child {
+    margin-bottom: 0;
+}
+
+.product-info-item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.product-info-item.product-info-full {
+    grid-column: 1 / -1;
+}
+
+.product-info-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #667eea;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.product-info-value {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #2d3748;
+}
+
+/* ==================== 육안검사 섹션 ==================== */
+.visual-inspection-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    padding: 1.5rem;
+}
+
+.visual-inspection-item {
+    background: linear-gradient(135deg, #f6f9fc 0%, #e9f0f7 100%);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.visual-inspection-label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2d3748;
+    text-align: center;
+    line-height: 1.4;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #cbd5e0;
+}
+
+.visual-inspection-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.visual-radio {
+    flex: 1;
+    cursor: pointer;
+}
+
+.visual-radio input[type="radio"] {
+    display: none;
+}
+
+.visual-radio-label {
+    display: block;
+    padding: 1.2rem 1.5rem;
+    border-radius: 10px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+    user-select: none;
+}
+
+.visual-radio-label.visual-pass {
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    color: #2e7d32;
+}
+
+.visual-radio-label.visual-fail {
+    background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+    color: #c62828;
+}
+
+.visual-radio input[type="radio"]:checked + .visual-radio-label.visual-pass {
+    border-color: #2e7d32;
+    box-shadow: 0 6px 20px rgba(46, 125, 50, 0.3);
+    transform: scale(1.05);
+}
+
+.visual-radio input[type="radio"]:checked + .visual-radio-label.visual-fail {
+    border-color: #c62828;
+    box-shadow: 0 6px 20px rgba(198, 40, 40, 0.3);
+    transform: scale(1.05);
+}
+
+/* ==================== 태블릿 반응형 ==================== */
+@media (max-width: 1024px) {
+    .product-info-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .visual-inspection-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .product-info-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .product-info-grid {
+        padding: 1.5rem;
+    }
+    
+    .product-info-value {
+        font-size: 1.2rem;
+    }
+    
+    .visual-inspection-grid {
+        gap: 1.5rem;
+        padding: 1rem;
+    }
+    
+    .visual-inspection-label {
+        font-size: 1rem;
+    }
+    
+    .visual-radio-label {
+        padding: 1rem 1.2rem;
+        font-size: 1rem;
+    }
+}
+
+/* ==================================================
+   검사양식 모달 스타일 (v3.4)
+   ================================================== */
+
+/* 양식 컨테이너 */
+.inspection-form-content {
+    padding: 1rem;
+}
+
+/* 양식 섹션 */
+.form-section {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.form-section-header h3 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.item-count {
+    background: rgba(255,255,255,0.2);
+    color: #ffffff;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* 양식 행 */
+.form-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.form-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.required {
+    color: #dc3545;
+    margin-left: 0.25rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    transition: border-color 0.15s;
+}
+
+.form-control:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.form-control:read-only {
+    background-color: #e9ecef;
+}
+
+/* 검사항목 테이블 */
+.inspection-items-table {
+    overflow-x: auto;
+}
+
+.items-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+}
+
+.items-table thead {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: #ffffff;
+}
+
+.items-table th {
+    padding: 0.75rem;
+    text-align: left;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.items-table tbody tr {
+    border-bottom: 1px solid #dee2e6;
+    transition: background-color 0.15s;
+}
+
+.items-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.items-table tbody tr.fail-row {
+    background-color: #ffebee !important;
+}
+
+.items-table td {
+    padding: 0.75rem;
+    vertical-align: middle;
+}
+
+.items-table .text-center {
+    text-align: center;
+}
+
+.items-table .text-muted {
+    color: #6c757d;
+    font-size: 0.85rem;
+}
+
+/* 입력 필드 */
+.item-input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.result-select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    background-color: #fff;
+}
+
+.result-select option[value="pass"] {
+    color: #28a745;
+}
+
+.result-select option[value="fail"] {
+    color: #dc3545;
+}
+
+.remark-input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+/* 체크박스 라벨 */
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.checkbox-label input[type="checkbox"] {
+    margin-right: 0.5rem;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.checkbox-label span {
+    font-size: 0.9rem;
+}
+
+/* 모달 크기 조정 */
+.modal-xl .modal-content {
+    max-width: 1400px !important;
+    width: 98% !important;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    .form-row {
+        flex-direction: column;
+    }
+    
+    .inspection-items-table {
+        font-size: 0.85rem;
+    }
+    
+    .items-table th,
+    .items-table td {
+        padding: 0.5rem;
+    }
+}
+
+/* 인쇄 스타일 */
+@media print {
+    .modal-header,
+    .modal-footer {
+        display: none !important;
+    }
+    
+    .inspection-form-content {
+        padding: 0;
+    }
+    
+    .form-section {
+        page-break-inside: avoid;
+    }
+}
+
+/* ==================== 기본정보 그리드 스타일 ==================== */
+.basic-info-grid {
+    padding: 1rem;
+}
+
+.info-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-item label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+.info-item .form-control {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+
+.info-item .form-control:focus {
+    outline: none;
+    border-color: #2196f3;
+    box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.1);
+}
+
+/* 검사 테이블 스타일 개선 */
+.items-table th {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%) !important;
+    color: #ffffff !important;
+    font-weight: 600;
+    padding: 12px 8px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.items-table td {
+    padding: 10px 8px;
+    border: 1px solid #ddd;
+    vertical-align: middle;
+}
+
+.items-table td.text-center {
+    text-align: center;
+}
+
+.items-table input.form-control,
+.items-table select.form-control {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.items-table input.form-control:focus,
+.items-table select.form-control:focus {
+    outline: none;
+    border-color: #2196f3;
+    box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.1);
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    .info-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==================== 샘플링 기준 배지 ==================== */
+.sampling-criteria {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 4px 6px rgba(102, 126, 234, 0.3);
+}
+
+.criteria-badge {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 1rem;
+    white-space: nowrap;
+}
+
+.sampling-criteria small {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.85rem;
+}
+
+.info-item small.text-muted {
+    color: #666;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+}
+
+/* ==================== 판정기준 툴팁 ==================== */
+.criteria-cell {
+    position: relative;
+    cursor: help;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.criteria-cell:hover::after {
+    content: attr(title);
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 1000;
+    background: #333;
+    color: white;
+    padding: 0.75rem;
+    border-radius: 4px;
+    white-space: normal;
+    width: 250px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin-top: 5px;
+}
+
+/* ==================== 검사자 서명란 ==================== */
+.signature-area {
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.signature-box {
+    max-width: 400px;
+}
+
+.signature-box label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.signature-pad {
+    margin-top: 1rem;
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 0.5rem;
+    display: inline-block;
+}
+
+#signatureCanvas {
+    display: block;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    cursor: crosshair;
+    touch-action: none;
+}
+
+.btn-clear-signature {
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background 0.2s;
+}
+
+.btn-clear-signature:hover {
+    background: #c82333;
+}
+
+/* ==================== 태블릿 최적화 ==================== */
+@media (max-width: 1024px) {
+    /* 테이블 스크롤 */
+    .inspection-items-table {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* 입력 필드 크기 조정 */
+    .form-control {
+        font-size: 16px; /* iOS 자동 확대 방지 */
+        padding: 0.6rem;
+        min-height: 44px; /* 터치 최소 크기 */
+    }
+    
+    /* 버튼 크기 조정 */
+    button, .btn {
+        min-height: 44px;
+        padding: 0.6rem 1.2rem;
+        font-size: 16px;
+    }
+    
+    /* 모달 크기 조정 */
+    .modal-content {
+        width: 98% !important;
+        max-width: 1400px !important;
+        margin: 2% auto;
+    }
+    
+    /* 서명 패드 크기 조정 */
+    #signatureCanvas {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* 기본정보 그리드 조정 */
+    .basic-info-grid .info-row {
+        flex-direction: column;
+    }
+    
+    .basic-info-grid .info-item {
+        width: 100%;
+    }
+    
+    /* 테이블 가로 스크롤 */
+    .items-table {
+        min-width: 800px;
+    }
+    
+    /* 서명 패드 전체 너비 */
+    .signature-box {
+        max-width: 100%;
+    }
+    
+    #signatureCanvas {
+        width: 100%;
+    }
+}
+
+/* ==================== 태블릿 터치 최적화 ==================== */
+@media (hover: none) and (pointer: coarse) {
+    /* 터치 디바이스용 스타일 */
+    
+    /* 선택 영역 크기 증가 */
+    select.form-control {
+        min-height: 48px;
+        font-size: 16px;
+    }
+    
+    /* 입력 필드 여백 증가 */
+    input[type="text"],
+    input[type="number"],
+    textarea {
+        padding: 0.75rem;
+        font-size: 16px;
+    }
+    
+    /* 툴팁 터치 시 표시 */
+    .criteria-cell:active::after {
+        content: attr(title);
+        position: absolute;
+        left: 0;
+        top: 100%;
+        z-index: 1000;
+        background: #333;
+        color: white;
+        padding: 0.75rem;
+        border-radius: 4px;
+        white-space: normal;
+        width: 250px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        font-size: 0.85rem;
+        line-height: 1.4;
+        margin-top: 5px;
+    }
+}
+
+/* ==================== 한 줄 테이블 최적화 ==================== */
+.items-table {
+    table-layout: fixed;
+}
+
+.items-table th,
+.items-table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.items-table td:nth-child(2) {
+    /* 검사항목 열 */
+    white-space: normal;
+    word-break: keep-all;
+}
+
+/* 검사결과 입력 필드 너비 조정 */
+.item-input {
+    min-width: 80px;
+    max-width: 120px;
+}
+
+/* 판정 셀렉트 너비 조정 */
+.result-select {
+    min-width: 80px;
+}
+
+
+/* 검사양식 모달 크기 강제 적용 (ID 셀렉터 사용) */
+#inspectionFormModal .modal-content {
+    max-width: 1400px !important;
+    width: 98% !important;
+}
+
+/* ==========================================
+   사진 첨부 기능 스타일 v1.0
+   ========================================== */
+
+/* 사진 첨부 섹션 */
+.photo-attachment-section {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border: 2px dashed #cbd5e0;
+}
+
+.photo-attachment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.photo-attachment-header h4 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* 사진 업로드 버튼 영역 */
+.photo-upload-buttons {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.btn-photo-upload {
+    flex: 1;
+    min-width: 150px;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.3s;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.btn-photo-upload:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-photo-upload:active {
+    transform: translateY(0);
+}
+
+.btn-photo-upload i {
+    font-size: 1.2rem;
+}
+
+/* 사진 미리보기 그리드 */
+.photo-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.photo-preview-item {
+    position: relative;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s;
+}
+
+.photo-preview-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.photo-preview-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    display: block;
+}
+
+.photo-preview-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.photo-preview-item:hover .photo-preview-overlay {
+    opacity: 1;
+}
+
+.photo-preview-action {
+    width: 36px;
+    height: 36px;
+    background: rgba(255,255,255,0.9);
+    border: none;
+    border-radius: 50%;
+    color: #2c3e50;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.photo-preview-action:hover {
+    background: white;
+    transform: scale(1.1);
+}
+
+.photo-preview-action.delete {
+    color: #e74c3c;
+}
+
+.photo-preview-info {
+    padding: 0.5rem;
+    font-size: 0.85rem;
+    color: #666;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 파일 입력 숨기기 */
+.photo-input-hidden {
+    display: none;
+}
+
+/* 빈 상태 메시지 */
+.photo-empty-state {
+    text-align: center;
+    padding: 2rem;
+    color: #95a5a6;
+}
+
+.photo-empty-state i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.photo-empty-state p {
+    margin: 0.5rem 0;
+    font-size: 0.95rem;
+}
+
+/* 업로드 진행 상태 */
+.photo-uploading {
+    position: relative;
+    pointer-events: none;
+}
+
+.photo-uploading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,255,255,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.photo-upload-progress {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 10;
+}
+
+.photo-upload-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 반응형: 태블릿 */
+@media (max-width: 1024px) {
+    .photo-upload-buttons {
+        flex-direction: column;
+    }
+    
+    .btn-photo-upload {
+        width: 100%;
+        min-height: 50px;
+    }
+    
+    .photo-preview-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+    
+    .photo-preview-image {
+        height: 120px;
+    }
+}
+
+/* 반응형: 모바일 */
+@media (max-width: 768px) {
+    .photo-attachment-section {
+        padding: 1rem;
+    }
+    
+    .photo-preview-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 0.75rem;
+    }
+    
+    .photo-preview-image {
+        height: 100px;
+    }
+    
+    .btn-photo-upload {
+        font-size: 0.9rem;
+        padding: 0.65rem 0.85rem;
+    }
+}
+
+/* ============================================
+   PDF 첨부 기능 스타일 (v1.0)
+============================================ */
+
+.pdf-attachment-section {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: #fff;
+    border: 2px solid #e1e8ed;
+    border-radius: 8px;
+}
+
+.pdf-attachment-header {
+    margin-bottom: 1rem;
+}
+
+.pdf-attachment-header h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pdf-attachment-header .fa-file-pdf {
+    color: #e74c3c;
+    font-size: 1.3rem;
+}
+
+.pdf-attachment-header .badge {
+    background: #95a5a6;
+    color: white;
+    padding: 0.15rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    min-width: 20px;
+    text-align: center;
+}
+
+.pdf-upload-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.btn-pdf-upload {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 44px;
+}
+
+.btn-pdf-upload:hover {
+    background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+}
+
+.btn-pdf-upload:active {
+    transform: translateY(0);
+}
+
+.btn-pdf-upload i {
+    font-size: 1.2rem;
+}
+
+.pdf-input-hidden {
+    display: none;
+}
+
+/* PDF 미리보기 */
+#pdfPreviewContainer {
+    min-height: 100px;
+}
+
+.pdf-empty-state {
+    text-align: center;
+    padding: 2rem;
+    color: #95a5a6;
+}
+
+.pdf-empty-state i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #e74c3c;
+    opacity: 0.3;
+}
+
+.pdf-empty-state p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+}
+
+.pdf-preview-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.pdf-preview-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.pdf-preview-item:hover {
+    background: #e9ecef;
+    border-color: #e74c3c;
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.1);
+}
+
+.pdf-preview-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    border-radius: 8px;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.pdf-preview-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.pdf-preview-name {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.25rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.pdf-preview-meta {
+    font-size: 0.85rem;
+    color: #7f8c8d;
+}
+
+.pdf-preview-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.pdf-preview-action {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    color: #495057;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.pdf-preview-action:hover {
+    background: #667eea;
+    border-color: #667eea;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
+}
+
+.pdf-preview-action.delete:hover {
+    background: #e74c3c;
+    border-color: #e74c3c;
+}
+
+/* PDF 업로드 진행 상태 */
+.pdf-uploading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.pdf-upload-progress {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 10;
+}
+
+.pdf-upload-spinner {
+    margin: 0 auto;
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #e74c3c;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.pdf-upload-progress p {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+/* 반응형: 태블릿 */
+@media (max-width: 1024px) {
+    .pdf-upload-buttons {
+        flex-direction: column;
+    }
+    
+    .btn-pdf-upload {
+        width: 100%;
+        min-height: 50px;
+    }
+}
+
+/* 반응형: 모바일 */
+@media (max-width: 768px) {
+    .pdf-attachment-section {
+        padding: 1rem;
+    }
+    
+    .pdf-preview-item {
+        padding: 0.75rem;
+    }
+    
+    .pdf-preview-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
+    .btn-pdf-upload {
+        font-size: 0.9rem;
+        padding: 0.65rem 0.85rem;
+    }
+    
+    .pdf-preview-name {
+        font-size: 0.9rem;
+    }
+    
+    .pdf-preview-meta {
+        font-size: 0.75rem;
+    }
+}
+
+/* ============================================
+   리스트 PDF/사진 표시 스타일
+============================================ */
+
+.pdf-indicator,
+.photo-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.3rem 0.6rem;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: #495057;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+}
+
+.pdf-indicator {
+    border-color: #e74c3c;
+    background: #fee;
+    color: #e74c3c;
+}
+
+.pdf-indicator i {
+    color: #e74c3c;
+}
+
+.photo-indicator {
+    border-color: #667eea;
+    background: #f0f3ff;
+    color: #667eea;
+}
+
+.photo-indicator i {
+    color: #667eea;
+}
+
+.pdf-indicator:hover,
+.photo-indicator:hover {
+    opacity: 0.8;
+    cursor: help;
+}

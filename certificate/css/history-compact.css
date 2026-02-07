@@ -1,0 +1,151 @@
+/* 발행내역 테이블 컴팩트 레이아웃 최적화 */
+
+/* 테이블 전체 레이아웃 */
+.history-table {
+    table-layout: auto;
+    width: 100%;
+}
+
+/* 테이블 헤더 */
+.history-table th {
+    padding: 0.8rem 0.6rem !important;
+    font-size: 0.9rem !important;
+    white-space: nowrap !important;
+    vertical-align: middle !important;
+}
+
+/* 테이블 셀 */
+.history-table td {
+    padding: 0.8rem 0.6rem !important;
+    font-size: 0.9rem !important;
+    vertical-align: middle !important;
+    white-space: nowrap !important;
+}
+
+/* 현장명 컬럼만 줄바꿈 허용 및 너비 제한 */
+.history-table td.text-truncate {
+    max-width: 200px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+/* 작업 버튼 컨테이너 - 한 줄 유지 */
+.action-cell {
+    display: flex !important;
+    gap: 0.3rem !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    white-space: nowrap !important;
+    flex-wrap: nowrap !important;
+}
+
+/* 작업 버튼 크기 최적화 */
+.btn-action {
+    padding: 0.35rem 0.5rem !important;
+    min-width: 32px !important;
+    height: 32px !important;
+    font-size: 0.85rem !important;
+    border-radius: 5px !important;
+}
+
+.btn-action i {
+    font-size: 0.9rem !important;
+}
+
+/* 서류타입 라벨 */
+.history-table td span[style*="padding: 4px 8px"] {
+    padding: 3px 6px !important;
+    font-size: 0.8rem !important;
+    white-space: nowrap !important;
+}
+
+/* 체크박스 */
+.row-checkbox,
+#selectAllCheckbox {
+    width: 16px !important;
+    height: 16px !important;
+}
+
+/* 번호 컬럼 */
+.history-table td:nth-child(2) {
+    text-align: center;
+    font-weight: 500;
+}
+
+/* 발급NO, 업체명 컬럼 */
+.history-table td:nth-child(4),
+.history-table td:nth-child(5) {
+    font-weight: 500;
+}
+
+/* 날짜 컬럼 */
+.history-table td:nth-child(6),
+.history-table td:nth-child(8),
+.history-table td:nth-child(9) {
+    color: #666;
+    font-size: 0.85rem !important;
+}
+
+/* 행 호버 효과 */
+.history-table tbody tr:hover {
+    background-color: #f8f9ff !important;
+}
+
+/* 선택된 행 */
+.history-table tbody tr:has(.row-checkbox:checked) {
+    background-color: #f0f4ff !important;
+    border-left: 3px solid #667eea !important;
+}
+
+/* 반응형: 작은 화면에서도 한 줄 유지 */
+@media (max-width: 1400px) {
+    .history-table {
+        font-size: 0.85rem;
+    }
+    
+    .history-table th,
+    .history-table td {
+        padding: 0.6rem 0.4rem !important;
+        font-size: 0.85rem !important;
+    }
+    
+    .btn-action {
+        min-width: 28px !important;
+        height: 28px !important;
+        padding: 0.3rem 0.4rem !important;
+    }
+    
+    .btn-action i {
+        font-size: 0.8rem !important;
+    }
+    
+    .action-cell {
+        gap: 0.2rem !important;
+    }
+}
+
+/* 테이블 오버플로우 처리 */
+.table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* 스크롤바 스타일 (Chrome, Safari) */
+.table-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: #667eea;
+    border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+    background: #5568d3;
+}

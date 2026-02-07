@@ -1,0 +1,1347 @@
+/* 전역 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #1e5aa8;
+    --secondary-color: #2c7be5;
+    --success-color: #00d97e;
+    --info-color: #39afd1;
+    --warning-color: #f6c343;
+    --danger-color: #e63757;
+    --dark-color: #12263f;
+    --light-color: #f9fbfd;
+    --border-color: #d2ddec;
+    --text-color: #2c3e50;
+    --text-muted: #6c757d;
+    --shadow: 0 0.15rem 1.75rem 0 rgba(33, 40, 50, 0.15);
+    --shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+}
+
+body {
+    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 헤더 */
+.header {
+    background: white;
+    box-shadow: var(--shadow);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo i {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--dark-color);
+}
+
+.logo-subtitle {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+/* 헤더 액션 버튼 */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.user-info i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.btn-logout {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    background: var(--danger-color);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.btn-logout:hover {
+    background: #c92a2a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(230, 55, 87, 0.3);
+}
+
+.btn-logout:active {
+    transform: translateY(0);
+}
+
+/* 메인 컨텐츠 */
+.main-content {
+    padding: 2rem 0 4rem;
+}
+
+.content-wrapper {
+    display: grid;
+    grid-template-columns: 450px 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+/* 폼 섹션 */
+.form-section {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.section-title i {
+    color: var(--primary-color);
+}
+
+.cert-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: var(--dark-color);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-group label i {
+    color: var(--primary-color);
+    font-size: 0.875rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-family: 'Noto Sans KR', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(30, 90, 168, 0.15);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+/* 수량 필드를 절반 크기로 */
+.form-row-quantity {
+    grid-template-columns: 1fr 2fr;
+}
+
+/* 버튼 */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #164a8a;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.btn-secondary {
+    background: var(--text-muted);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+    transform: translateY(-2px);
+}
+
+.btn-success {
+    background: var(--success-color);
+    color: white;
+}
+
+.btn-success:hover {
+    background: #00c06d;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.btn-info {
+    background: var(--info-color);
+    color: white;
+}
+
+.btn-info:hover {
+    background: #2d9cba;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.form-actions .btn {
+    flex: 1;
+}
+
+/* 미리보기 섹션 */
+.preview-section {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 100px;
+}
+
+/* 업로드 섹션 */
+.upload-section {
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1.5rem;
+}
+
+/* 탭 스타일 */
+.upload-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin: 1rem 0;
+    flex-wrap: wrap;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0;
+}
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 0.75rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 500;
+    position: relative;
+    bottom: -2px;
+}
+
+.tab-btn i {
+    font-size: 1.25rem;
+}
+
+.tab-btn:hover {
+    color: var(--primary-color);
+    background: rgba(30, 90, 168, 0.05);
+}
+
+.tab-btn.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+    font-weight: 600;
+}
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 고정 서류 단일 업로드 스타일 */
+.upload-section.fixed-docs-single {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+}
+
+.upload-hint-text {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-left: 0.5rem;
+}
+
+.single-upload-container {
+    margin-top: 1rem;
+}
+
+.single-upload-area {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: white;
+    border: 2px dashed var(--border-color);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.single-upload-area:hover {
+    border-color: var(--primary-color);
+    background: #f8f9ff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(30, 90, 168, 0.1);
+}
+
+.upload-icon-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 0.5rem;
+    flex-shrink: 0;
+}
+
+.upload-icon-section i {
+    font-size: 2.5rem;
+    color: white;
+}
+
+.upload-text-section {
+    flex: 1;
+    text-align: left;
+}
+
+.upload-text-section h4 {
+    margin: 0 0 0.5rem 0;
+    color: var(--dark-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.upload-text-section p {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-color);
+    font-size: 0.95rem;
+}
+
+.upload-format-hint {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: #e3f2fd;
+    color: var(--primary-color);
+    border-radius: 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.single-file-uploaded {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: white;
+    border: 2px solid #4caf50;
+    border-radius: 0.5rem;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.uploaded-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #4caf50, #66bb6a);
+    border-radius: 0.5rem;
+    flex-shrink: 0;
+}
+
+.uploaded-icon i {
+    font-size: 2.5rem;
+    color: white;
+}
+
+.uploaded-info {
+    flex: 1;
+}
+
+.uploaded-filename {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 0.25rem;
+    word-break: break-all;
+}
+
+.uploaded-size {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.btn-remove-file {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    background: transparent;
+    border: 2px solid var(--danger-color);
+    color: var(--danger-color);
+    border-radius: 0.375rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-remove-file:hover {
+    background: var(--danger-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(230, 55, 87, 0.3);
+}
+
+/* 품질 서류 섹션 */
+.upload-section.quality-docs {
+    margin-top: 1.5rem;
+}
+
+/* 업로드 테이블 스타일 */
+.upload-table-container {
+    margin-top: 1rem;
+    overflow-x: auto;
+}
+
+.upload-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.upload-table thead {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+}
+
+.upload-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.upload-table th:first-child {
+    width: 200px;
+}
+
+.upload-table tbody tr {
+    border-bottom: 1px solid var(--border-color);
+    transition: background 0.2s ease;
+}
+
+.upload-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.upload-table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.upload-table td {
+    padding: 1rem;
+    vertical-align: middle;
+}
+
+.doc-name {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 500;
+    color: var(--dark-color);
+}
+
+.doc-name i {
+    font-size: 1.25rem;
+    color: var(--primary-color);
+}
+
+.doc-upload {
+    text-align: center;
+}
+
+.table-upload-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.5rem;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 0.375rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.table-upload-btn:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(30, 90, 168, 0.3);
+}
+
+.table-file-info {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1rem;
+    background: #e8f5e9;
+    border-radius: 0.375rem;
+    border: 1px solid #4caf50;
+}
+
+.table-file-info i {
+    font-size: 1.25rem;
+    color: #4caf50;
+}
+
+.table-filename {
+    font-size: 0.9rem;
+    color: var(--dark-color);
+    font-weight: 500;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.btn-table-remove {
+    background: transparent;
+    border: none;
+    color: var(--danger-color);
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all 0.2s ease;
+}
+
+.btn-table-remove:hover {
+    color: #c62828;
+    transform: scale(1.2);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .single-upload-area,
+    .single-file-uploaded {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .upload-text-section {
+        text-align: center;
+    }
+    
+    .upload-icon-section,
+    .uploaded-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .upload-icon-section i,
+    .uploaded-icon i {
+        font-size: 2rem;
+    }
+    
+    .upload-table th:first-child {
+        width: auto;
+    }
+    
+    .upload-table th,
+    .upload-table td {
+        padding: 0.75rem;
+        font-size: 0.85rem;
+    }
+    
+    .table-filename {
+        max-width: 150px;
+    }
+}
+
+.upload-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.upload-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.upload-label i {
+    color: var(--primary-color);
+}
+
+.btn-reset-upload {
+    background: transparent;
+    border: 1px solid var(--danger-color);
+    color: var(--danger-color);
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.3s ease;
+}
+
+.btn-reset-upload:hover {
+    background: var(--danger-color);
+    color: white;
+}
+
+.upload-box {
+    position: relative;
+}
+
+.upload-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    border: 2px dashed var(--border-color);
+    border-radius: 0.5rem;
+    background: var(--light-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-area:hover {
+    border-color: var(--primary-color);
+    background: #f0f4ff;
+}
+
+.upload-area i {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.upload-area p {
+    margin: 0.5rem 0;
+    color: var(--text-color);
+    font-size: 0.95rem;
+}
+
+.upload-hint {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.uploaded-file-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: #e8f5e9;
+    border: 1px solid #4caf50;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    justify-content: space-between;
+}
+
+.uploaded-file-info i {
+    font-size: 1.5rem;
+    color: #4caf50;
+}
+
+.uploaded-filename {
+    flex: 1;
+    font-weight: 500;
+    color: var(--dark-color);
+}
+
+.file-size {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.uploaded-file-info span {
+    flex: 1;
+    font-weight: 500;
+    color: var(--dark-color);
+}
+
+.file-size {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    flex: none !important;
+}
+
+.preview-area {
+    border: 2px dashed var(--border-color);
+    border-radius: 0.5rem;
+    min-height: 500px;
+    max-height: 750px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--light-color);
+    overflow: auto;
+}
+
+.preview-placeholder {
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.preview-placeholder i {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.3;
+}
+
+.preview-placeholder p {
+    font-size: 1rem;
+}
+
+.preview-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.preview-actions .btn {
+    flex: 1;
+}
+
+/* 품질인정서 템플릿 */
+.certificate-template {
+    display: none;
+    position: relative;
+}
+
+.cert-page {
+    width: 210mm;
+    height: 297mm;
+    position: relative;
+    background: white;
+    margin: 0 auto;
+}
+
+.cert-header {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.cert-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.cert-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* 발급 정보 테이블 */
+.issue-info-table {
+    position: absolute;
+    top: 25%;
+    right: 10%;
+    width: 40%;
+}
+
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.info-table td {
+    border: 1px solid #dc143c;
+    padding: 6px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.label-cell {
+    background: transparent;
+    font-weight: 700;
+    width: 20%;
+    text-align: center;
+    color: #dc143c;
+    font-size: 12px;
+}
+
+.value-cell {
+    background: transparent;
+    font-weight: 600;
+    width: 30%;
+    text-align: left;
+    padding-left: 12px;
+    color: #000;
+    font-size: 12px;
+}
+
+.full-width {
+    width: 78%;
+}
+
+.stamp-label {
+    background: transparent;
+    text-align: center;
+    padding: 12px;
+}
+
+.stamp-text {
+    font-size: 11px;
+    font-weight: 700;
+    color: #dc143c;
+    letter-spacing: 0.2px;
+    line-height: 1.5;
+}
+
+.company-label {
+    background: transparent;
+    text-align: center;
+    padding: 10px;
+}
+
+.company-text {
+    font-size: 13px;
+    font-weight: 700;
+    color: #dc143c;
+    letter-spacing: 0.5px;
+}
+
+/* 하단 원본대조필(인) 이미지 - 페이지 전체 하단 */
+.stamp-section-bottom {
+    position: absolute;
+    bottom: 5%;
+    left: 0;
+    width: 100%;
+    background: transparent;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stamp-pdf-full {
+    display: block;
+    width: auto;
+    height: 49px; /* 총 61% 축소 (기존 126px → 88px → 70px → 49px) */
+    object-fit: contain;
+    opacity: 1;
+    /* 흰색 배경 제거 */
+    mix-blend-mode: multiply;
+}
+
+
+
+/* 도장 이미지 */
+.stamp-container {
+    position: absolute;
+    top: 34%;
+    right: 20%;
+    width: 150px;
+    height: 150px;
+    z-index: 10;
+}
+
+.stamp-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* 미리보기에서 인증서 표시 */
+.preview-area.active {
+    border: none;
+    background: white;
+    padding: 1rem;
+}
+
+.preview-area.active .certificate-template {
+    display: block;
+    transform: scale(0.8);
+    transform-origin: top center;
+}
+
+/* 파일 미리보기 스타일 */
+.preview-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    color: var(--text-muted);
+}
+
+.preview-loading i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.pdf-preview-container {
+    width: 100%;
+    height: 700px;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background: #f5f5f5;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.pdf-toolbar {
+    background: var(--dark-color);
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    flex-shrink: 0;
+}
+
+.pdf-filename {
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pdf-filename i {
+    color: #ff6b6b;
+}
+
+.pdf-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.pdf-page-info {
+    font-size: 0.9rem;
+    padding: 0 0.5rem;
+}
+
+.btn-pdf-nav {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.4rem 0.6rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-pdf-nav:hover:not(:disabled) {
+    background: var(--secondary-color);
+}
+
+.btn-pdf-nav:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-download-pdf {
+    background: var(--success-color);
+    color: white;
+    padding: 0.4rem 0.6rem;
+    border-radius: 0.375rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.btn-download-pdf:hover {
+    background: #00c06d;
+}
+
+.pdf-with-overlay-container {
+    width: 100%;
+    height: 700px;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background: #f5f5f5;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.pdf-canvas-container {
+    flex: 1;
+    overflow: auto;
+    background: #525659;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 1rem;
+}
+
+.pdf-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.pdf-canvas {
+    display: block;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    background: white;
+}
+
+.cert-overlay-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* 오버레이 가림 요소 제거됨 - 더 이상 필요 없음 */
+
+.image-preview-container {
+    width: 100%;
+    max-height: 600px;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.image-preview {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 푸터 */
+.footer {
+    background: white;
+    padding: 2rem 0;
+    margin-top: auto;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.footer-content {
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.footer-content p {
+    margin: 0.5rem 0;
+}
+
+.footer-info {
+    font-size: 0.9rem;
+}
+
+.footer-info i {
+    color: var(--primary-color);
+}
+
+/* 인쇄 스타일 */
+@media print {
+    @page {
+        size: A4;
+        margin: 0;
+    }
+
+    * {
+        visibility: hidden;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        background: white;
+    }
+
+    /* 미리보기 영역과 그 자식 요소들만 표시 */
+    .preview-area,
+    .preview-area * {
+        visibility: visible !important;
+    }
+
+    .preview-area {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+        background: white !important;
+    }
+
+    /* PDF 래퍼 */
+    .pdf-wrapper {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    /* Canvas 영역 */
+    #pdfCanvas {
+        max-width: 100% !important;
+        height: auto !important;
+        page-break-inside: avoid;
+    }
+
+    /* 오버레이 레이어 */
+    .cert-overlay-layer {
+        position: absolute !important;
+        pointer-events: none !important;
+    }
+
+    /* 버튼 숨기기 */
+    .preview-actions {
+        display: none !important;
+        visibility: hidden !important;
+    }
+
+    /* 스크롤바 숨기기 */
+    ::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1200px) {
+    .content-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .preview-section {
+        position: static;
+    }
+}
+
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .preview-actions {
+        flex-direction: column;
+    }
+
+    .logo-title {
+        font-size: 1rem;
+    }
+
+    .logo i {
+        font-size: 2rem;
+    }
+
+    .preview-area.active .certificate-template {
+        transform: scale(0.5);
+    }
+    
+    /* 헤더 반응형 */
+    .header-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .header-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .user-info {
+        font-size: 0.85rem;
+    }
+    
+    .btn-logout {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-section,
+    .preview-section {
+        padding: 1rem;
+    }
+
+    .section-title {
+        font-size: 1.25rem;
+    }
+
+    .preview-area.active .certificate-template {
+        transform: scale(0.35);
+    }
+}
+
+/* 로딩 애니메이션 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-section,
+.preview-section {
+    animation: fadeIn 0.5s ease-out;
+}

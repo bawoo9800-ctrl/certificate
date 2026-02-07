@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>품질인정서 발급 시스템 - (주) 정일방화문</title>
+    <link rel="stylesheet" href="css/style.css?v=6.5">
+    <link rel="stylesheet" href="css/history.css?v=6.1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* 발급NO와 발급일자를 동일한 크기로 강제 설정 */
+        .cert-form .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr !important;
+            gap: 1rem;
+        }
+        .cert-form .form-row .form-group {
+            width: 100%;
+        }
+        .cert-form .form-row .form-group input {
+            width: 100% !important;
+            box-sizing: border-box;
+        }
+    </style>
+    <!-- PDF.js 라이브러리 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <!-- html2pdf.js 라이브러리 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- html2canvas 라이브러리 (독립 사용) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- PDF-lib 라이브러리 (PDF 수정용) -->
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <!-- SheetJS 라이브러리 (엑셀 생성용) -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <!-- 프로젝트 스크립트 (외부 라이브러리 로드 후) -->
+    <script src="js/script.js?v=7.3"></script>
+    <script src="js/merge-all-pdfs.js?v=6.6"></script>
+    <!-- 로그인 검증 스크립트 -->
+    <script>
+        // 페이지 로드 시 로그인 확인
+        (function() {
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+            const rememberMe = localStorage.getItem('rememberMe');
+            
+            // 로그인되어 있지 않으면 로그인 페이지로 리다이렉트
+            if (isLoggedIn !== 'true' && rememberMe !== 'true') {
+                window.location.href = 'login.html';
+            }
+        })();
+    </script>
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header no-print">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-certificate"></i>
+                    <div class="logo-text">
+                        <span class="logo-title">품질인정서 발급 시스템</span>
+                        <span class="logo-subtitle">(주) 정일방화문</span>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <a href="quality-inspection.html" class="btn-nav">
+                        <i class="fas fa-clipboard-check"></i> 품질검사
+                    </a>
+                    <a href="history.html" class="btn-nav">
+                        <i class="fas fa-list"></i> 발행내역
+                    </a>
+                    <a href="stats.html" class="btn-nav">
+                        <i class="fas fa-chart-bar"></i> 통계
+                    </a>
+                    <span class="user-info" id="userInfo">
+                        <i class="fas fa-user-circle"></i>
+                        <span id="usernameDisplay"></span>
+                    </span>
+                    <button onclick="logout()" class="btn-logout">
+                        <i class="fas fa-sign-out-alt"></i> 로그아웃
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="main-content no-print">
+        <div class="container">
+            <div class="content-wrapper">
+                <!-- 입력 폼 섹션 -->
+                <div class="form-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-edit"></i> <span id="formTitle">품질인정서 정보 입력</span>
+                    </h2>
+                    <form id="certificationForm" class="cert-form">
+                        <!-- 서류 타입 선택 -->
+                        <div class="form-group" style="margin-bottom: 2rem; padding: 1rem; background: #f8f9fa; border-radius: 0.5rem; border: 2px solid #e9ecef;">
+                            <label style="font-size: 1.1rem; font-weight: 600; color: #495057; margin-bottom: 1rem; display: block;">
+                                <i class="fas fa-file-alt"></i> 서류 타입 선택 *
+                            </label>
+                            <div style="display: flex; gap: 2rem; align-items: center;">
+                                <label style="display: flex; align-items: center; cursor: pointer; font-size: 1rem;">
+                                    <input 
+                                        type="radio" 
+                                        name="documentType" 
+                                        value="quality" 
+                                        checked 
+                                        style="width: 20px; height: 20px; margin-right: 0.5rem; cursor: pointer;"
+                                        onchange="updateDocumentType()"
+                                    >
+                                    <span style="font-weight: 500;">품질인정서</span>
+                                </label>
+                                <label style="display: flex; align-items: center; cursor: pointer; font-size: 1rem;">
+                                    <input 
+                                        type="radio" 
+                                        name="documentType" 
+                                        value="insulation" 
+                                        style="width: 20px; height: 20px; margin-right: 0.5rem; cursor: pointer;"
+                                        onchange="updateDocumentType()"
+                                    >
+                                    <span style="font-weight: 500;">단열성적서</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="issueNo">
+                                    <i class="fas fa-hashtag"></i> 발급NO *
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="issueNo" 
+                                    name="issueNo" 
+                                    placeholder="예: 25-1204-7"
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="issueDate">
+                                    <i class="fas fa-calendar-check"></i> 발급일자 *
+                                </label>
+                                <input 
+                                    type="date" 
+                                    id="issueDate" 
+                                    name="issueDate" 
+                                    required
+                                >
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="companyName">
+                                <i class="fas fa-building"></i> 업체명 *
+                            </label>
+                            <input 
+                                type="text" 
+                                id="companyName" 
+                                name="companyName" 
+                                placeholder="예: 업체명 입력"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="siteName">
+                                <i class="fas fa-map-marker-alt"></i> 현장명 *
+                            </label>
+                            <input 
+                                type="text" 
+                                id="siteName" 
+                                name="siteName" 
+                                placeholder="예: 현장명 입력"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="siteAddress">
+                                <i class="fas fa-map-marked-alt"></i> 현장주소 *
+                            </label>
+                            <input 
+                                type="text" 
+                                id="siteAddress" 
+                                name="siteAddress" 
+                                placeholder="예: 서울시 강남구 테헤란로 123"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="deliveryDate">
+                                <i class="fas fa-truck"></i> 납품일자 *
+                            </label>
+                            <input 
+                                type="date" 
+                                id="deliveryDate" 
+                                name="deliveryDate" 
+                                required
+                            >
+                        </div>
+                        
+                        <!-- 숨겨진 수량 필드 (기존 코드 호환성 유지, 기본값 "-") -->
+                        <input type="hidden" id="quantity" name="quantity" value="-">
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-eye"></i> 미리보기 생성
+                            </button>
+                            <button type="button" class="btn btn-success" onclick="downloadExcel()">
+                                <i class="fas fa-file-excel"></i> 엑셀 다운로드
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                                <i class="fas fa-redo"></i> 초기화
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- 미리보기 섹션 -->
+                <div class="preview-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-file-alt"></i> 미리보기
+                    </h2>
+                    
+                    <!-- 고정 서류 업로드 영역 (통합) -->
+                    <div class="upload-section fixed-docs-single">
+                        <div class="upload-header">
+                            <label class="upload-label">
+                                <i class="fas fa-folder-open"></i> 고정 서류 업로드
+                            </label>
+                            <span class="upload-hint-text">※ 사업자등록증/공장등록증/KS인증서 (한 개의 PDF)</span>
+                        </div>
+                        
+                        <!-- 단일 업로드 박스 -->
+                        <div class="single-upload-container">
+                            <input type="file" id="pdfUpload-fixed" accept="application/pdf" onchange="handleFileUpload(event, 'fixed')" hidden>
+                            <label for="pdfUpload-fixed" class="single-upload-area" id="uploadArea-fixed">
+                                <div class="upload-icon-section">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div class="upload-text-section">
+                                    <h4>사업자등록증/공장등록증/KS인증서 업로드</h4>
+                                    <p>클릭하여 파일 선택 또는 드래그 앤 드롭</p>
+                                    <span class="upload-format-hint">3개 서류가 포함된 하나의 PDF 파일</span>
+                                </div>
+                            </label>
+                            
+                            <!-- 업로드 완료 표시 -->
+                            <div class="single-file-uploaded" id="fileUploaded-fixed" style="display: none;">
+                                <div class="uploaded-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="uploaded-info">
+                                    <div class="uploaded-filename" id="filename-fixed">파일명.pdf</div>
+                                    <div class="uploaded-size" id="filesize-fixed">0 KB</div>
+                                </div>
+                                <button type="button" class="btn-remove-file" onclick="resetUpload('fixed')">
+                                    <i class="fas fa-trash-alt"></i> 삭제
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 품질 서류 업로드 영역 (테이블 형식) -->
+                    <div class="upload-section quality-docs">
+                        <div class="upload-header">
+                            <label class="upload-label">
+                                <i class="fas fa-cloud-upload-alt"></i> 품질 서류 업로드
+                            </label>
+                        </div>
+                        
+                        <!-- 서류 업로드 테이블 -->
+                        <div class="upload-table-container">
+                            <table class="upload-table">
+                                <thead>
+                                    <tr>
+                                        <th>서류명</th>
+                                        <th>PDF 업로드</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- 품질관리서 (품질인정서 선택 시만 표시) -->
+                                    <tr id="quality1Row">
+                                        <td class="doc-name">
+                                            <i class="fas fa-award"></i>
+                                            <span>품질관리서</span>
+                                        </td>
+                                        <td class="doc-upload">
+                                            <input type="file" id="pdfUpload-quality1" accept="application/pdf" onchange="handleTableFileUpload(event, 'quality1')" hidden>
+                                            <label for="pdfUpload-quality1" class="table-upload-btn" id="uploadBtn-quality1">
+                                                <i class="fas fa-upload"></i> PDF 업로드
+                                            </label>
+                                            <div class="table-file-info" id="fileInfo-quality1" style="display: none;">
+                                                <i class="fas fa-file-pdf"></i>
+                                                <span class="table-filename"></span>
+                                                <button type="button" class="btn-table-remove" onclick="resetTableUpload('quality1')">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    <!-- 납품확인서 -->
+                                    <tr>
+                                        <td class="doc-name">
+                                            <i class="fas fa-truck-loading"></i>
+                                            <span>납품확인서</span>
+                                        </td>
+                                        <td class="doc-upload">
+                                            <input type="file" id="pdfUpload-delivery" accept="application/pdf" onchange="handleTableFileUpload(event, 'delivery')" hidden>
+                                            <label for="pdfUpload-delivery" class="table-upload-btn" id="uploadBtn-delivery">
+                                                <i class="fas fa-upload"></i> PDF 업로드
+                                            </label>
+                                            <div class="table-file-info" id="fileInfo-delivery" style="display: none;">
+                                                <i class="fas fa-file-pdf"></i>
+                                                <span class="table-filename"></span>
+                                                <button type="button" class="btn-table-remove" onclick="resetTableUpload('delivery')">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    <!-- 품질인정서/단열성적서 (서류 타입에 따라 이름 변경) -->
+                                    <tr>
+                                        <td class="doc-name">
+                                            <i class="fas fa-stamp"></i>
+                                            <span id="mainDocumentLabel">품질인정서</span>
+                                        </td>
+                                        <td class="doc-upload">
+                                            <input type="file" id="pdfUpload-quality2" accept="application/pdf" onchange="handleTableFileUpload(event, 'quality2')" hidden>
+                                            <label for="pdfUpload-quality2" class="table-upload-btn" id="uploadBtn-quality2">
+                                                <i class="fas fa-upload"></i> PDF 업로드
+                                            </label>
+                                            <div class="table-file-info" id="fileInfo-quality2" style="display: none;">
+                                                <i class="fas fa-file-pdf"></i>
+                                                <span class="table-filename"></span>
+                                                <button type="button" class="btn-table-remove" onclick="resetTableUpload('quality2')">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div id="previewArea" class="preview-area">
+                        <div class="preview-placeholder">
+                            <i class="fas fa-image"></i>
+                            <p id="previewPlaceholderText">품질인정서 PDF를 업로드하거나<br>좌측 폼을 작성하고 "미리보기 생성" 버튼을 클릭하세요</p>
+                        </div>
+                    </div>
+                    <div class="preview-actions" id="previewActions" style="display: none;">
+                        <button type="button" class="btn btn-success" onclick="downloadPDF()">
+                            <i class="fas fa-download"></i> <span id="downloadButtonText">품질인정서만 다운로드</span>
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="downloadAllMergedPDF()" style="margin-left: 10px;">
+                            <i class="fas fa-file-pdf"></i> 전체 문서 병합 다운로드
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 품질인정서 템플릿 (숨김 - PDF/인쇄용) -->
+    <div id="certificateTemplate" class="certificate-template print-only">
+        <div class="cert-page">
+            <!-- 상단 로고 및 워터마크 -->
+            <div class="cert-header">
+                <div class="cert-logo">
+                    <img src="https://www.genspark.ai/api/files/s/A6oatRNK" alt="품질인정서 원본" class="cert-bg" crossorigin="anonymous">
+                </div>
+            </div>
+
+            <!-- 품질인정서 내용 오버레이 -->
+            <div class="cert-overlay">
+                <!-- 발급 정보 테이블 -->
+                <div class="issue-info-table">
+                    <table class="info-table">
+                        <tr>
+                            <td class="label-cell">발급NO.</td>
+                            <td class="value-cell" id="cert-issueNo">-</td>
+                            <td class="label-cell">발급일자</td>
+                            <td class="value-cell" id="cert-issueDate">-</td>
+                        </tr>
+                        <tr>
+                            <td class="label-cell">업체명</td>
+                            <td class="value-cell" id="cert-companyName">-</td>
+                            <td class="label-cell">현장명</td>
+                            <td class="value-cell" id="cert-siteName">-</td>
+                        </tr>
+                        <tr>
+                            <td class="label-cell">수량</td>
+                            <td class="value-cell" id="cert-quantity">-</td>
+                            <td class="label-cell">납품일자</td>
+                            <td class="value-cell" id="cert-deliveryDate">-</td>
+                        </tr>
+                        <tr>
+                            <td class="label-cell stamp-label" colspan="4">
+                                <div class="stamp-text">원본대조필(인) 복사본 또는 적색고무인이 아닌것은 무효</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label-cell company-label" colspan="4">
+                                <div class="company-text">(주) 정일방화문</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <!-- 회사 직인 (원본대조필(인) 위치) -->
+                <div class="company-stamp">
+                    <img src="https://www.genspark.ai/api/files/s/MCcTK7jR" alt="회사직인" class="company-stamp-image" crossorigin="anonymous">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 푸터 -->
+    <footer class="footer no-print">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 품질인정서 발급 시스템</p>
+            </div>
+        </div>
+    </footer>
+
+
+</body>
+</html>
